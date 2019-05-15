@@ -78,7 +78,7 @@ int main(){
     t1 = time(NULL);
 
     cout << "Elapsed wall clock time: " << ((long) (t1 - t0)) << endl;
-    cout << "Elapsed wall clock time :" << ((float) (c1 - c0)) << endl;
+    cout << "Elapsed wall clock time :" << (double) (c1 - c0)/CLOCKS_PER_SEC << endl;
 	cout << "is sorted: " << is_sorted(a.begin(), a.end()) << endl;
     printvec(a);
 

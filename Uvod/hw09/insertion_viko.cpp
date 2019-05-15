@@ -28,6 +28,14 @@ int rand_int()
     return rand() % 20 + 1;
 }
 
+void print(int arr[], int k)
+{
+    for (int i = 0; i < k; i++)
+    {
+        cout << arr[i] << " ";
+    }
+}
+
 int main()
 {
 
@@ -57,6 +65,8 @@ int main()
 
     //cout << "Elapsed wall clock time: " << ((long) (t1 - t0)) << endl;
     cout << "Elapsed wall clock time :" << (double)(c1 - c0) / CLOCKS_PER_SEC << endl;
+    print(arr, k);
+    cout << endl;
 
     return 0;
 }

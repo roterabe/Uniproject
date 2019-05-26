@@ -5,11 +5,12 @@
 
 using namespace std;
 
-
 // --- Declare your classes here ---
 class Computation
 {
 public:
+	virtual int compute() = 0;
+
 private:
 };
 
@@ -27,8 +28,8 @@ int main(int argc, char const *argv[])
 	// --------------------
 
 	// --- Read command line arguments ---
-	string dataFile = "implement me";
-	string computeFile = "implement me";
+	string dataFile = argv[1];	//"implement me";
+	string computeFile = argv[2]; //"implement me";
 	// -----------------------------------
 
 	// --- DO NOT TOUCH ---
@@ -49,3 +50,17 @@ int main(int argc, char const *argv[])
 }
 
 // Define functions and member functions here
+vector<int> readDataFromFile(string filepath)
+{
+	int num = 0;
+	vector<int> nums = vector<int>();
+	ifstream input(filepath);
+	while (input >> num)
+	{
+		nums.push_back(num);
+	}
+	return nums;
+}
+vector<Computation *> readComputationsFromFile(string filepath)
+{
+}

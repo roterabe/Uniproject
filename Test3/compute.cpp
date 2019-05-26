@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// --- Declare your classes here ---
+//  class to compute and declare virtual function for computing.
 class Computation
 {
 public:
@@ -13,33 +13,29 @@ public:
 	virtual int compute(vector<int> data) = 0;
 
 private:
-	vector<int> data = vector<int>();
 };
 
+// This class sums all numbers in vector data.
 class Sum : public Computation
 {
 public:
 	Sum();
-	//Sum(vector<int> data);
 	virtual int compute(vector<int> data);
 
 private:
-	int result;
-	vector<int> data = vector<int>();
 };
 
+// This class sums all even numbers in vector data.
 class Sumeven : public Computation
 {
 public:
 	Sumeven();
-	//Sumdiv(vector<int> data);
 	virtual int compute(vector<int> data);
 
 private:
-	int result;
-	vector<int> data = vector<int>();
 };
 
+// This class outputs the minimal number from the vector data.
 class Min : public Computation
 {
 public:
@@ -47,8 +43,7 @@ public:
 	virtual int compute(vector<int> data);
 
 private:
-	int result;
-	vector<int> data = vector<int>();
+	//vector<int> data = vector<int>();
 };
 
 Computation *
@@ -119,7 +114,7 @@ vector<Computation *> readComputationsFromFile(string filepath)
 	return operations;
 }
 
-// Computes what object to call.
+// Computes what object to call and use.
 Computation *newcompute(string compu)
 {
 	string sum1 = "sum";
@@ -133,6 +128,7 @@ Computation *newcompute(string compu)
 		return new Min();
 }
 
+// Default constructors
 Sum::Sum()
 {
 }
@@ -141,6 +137,11 @@ Sumeven::Sumeven()
 {
 }
 
+Min::Min()
+{
+}
+
+// Compute sum.
 int Sum::compute(vector<int> data)
 {
 	int sum = 0;
@@ -151,6 +152,7 @@ int Sum::compute(vector<int> data)
 	return sum;
 }
 
+// Compute sum of even numbers.
 int Sumeven::compute(vector<int> data)
 {
 	int sum = 0;
@@ -162,10 +164,7 @@ int Sumeven::compute(vector<int> data)
 	return sum;
 }
 
-Min::Min()
-{
-}
-
+// Compute what is minimal number.
 int Min::compute(vector<int> data)
 {
 	int minimal = data[0];

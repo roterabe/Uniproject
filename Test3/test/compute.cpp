@@ -10,7 +10,7 @@ class Computation
 {
 public:
 	//Computation(char comp);
-	virtual int compute(vector<int> data) = 0;
+	virtual double compute(vector<int> data) = 0;
 
 private:
 };
@@ -20,7 +20,7 @@ class Sum : public Computation
 {
 public:
 	Sum();
-	virtual int compute(vector<int> data);
+	virtual double compute(vector<int> data);
 
 private:
 };
@@ -30,7 +30,7 @@ class Sumodd : public Computation
 {
 public:
 	Sumodd();
-	virtual int compute(vector<int> data);
+	virtual double compute(vector<int> data);
 
 private:
 };
@@ -40,7 +40,7 @@ class Max : public Computation
 {
 public:
 	Max();
-	virtual int compute(vector<int> data);
+	virtual double compute(vector<int> data);
 
 private:
 	//vector<int> data = vector<int>();
@@ -141,9 +141,9 @@ Max::Max()
 }
 
 // Compute sum.
-int Sum::compute(vector<int> data)
+double Sum::compute(vector<int> data)
 {
-	int sum = 0;
+	double sum = 0;
 	for (auto e : data)
 	{
 		sum += e;
@@ -152,21 +152,21 @@ int Sum::compute(vector<int> data)
 }
 
 // Compute sum of odd numbers.
-int Sumodd::compute(vector<int> data)
+double Sumodd::compute(vector<int> data)
 {
-	int sum = 0;
+	double sumodd = 0;
 	for (int i = 0; i < data.size(); i++)
 	{
 		if (data[i] % 2 != 0)
-			sum += data[i];
+			sumodd += data[i];
 	}
-	return sum;
+	return sumodd;
 }
 
 // Compute what is maximal number.
-int Max::compute(vector<int> data)
+double Max::compute(vector<int> data)
 {
-	int maximal = data[0];
+	double maximal = data[0];
 	for (int i = 0; i < data.size(); i++)
 	{
 		if (maximal < data[i])

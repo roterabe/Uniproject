@@ -25,9 +25,5 @@ for i in range(len(a)):
 		#b[k]=b[k]-ff*b[i]
 
 printMatrix(a)
-for row in a:
-		s=''
-		for element in row:
-			s+=str(element)+"|"
-		print (s+"\n")
+
 

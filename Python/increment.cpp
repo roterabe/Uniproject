@@ -4,9 +4,9 @@ using namespace std;
 int square(int n)
 {
     int k = 0;
-    while(true)
+    while (true)
     {
-        if (k == n*n)
+        if (k == n * n)
         {
             return k;
         }
@@ -16,8 +16,7 @@ int square(int n)
 
 int main()
 {
- int n = 100000;
+    int n = 100000;
 
- cout << square(n) << endl;
-
+    cout << square(n) << endl;
 }

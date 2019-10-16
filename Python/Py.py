@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 
 
-x = 5
-f = 6
-print(x+f)
+def square(n):
+    k = 0
+    while True:
+        if (k == n * n):
+            return k
+        k += 1
+
+number = 100000
+
+print(square(number))

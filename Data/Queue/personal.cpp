@@ -97,14 +97,49 @@ public:
         }
         cout << "\n\n";
     }
-    void sort(T A[], int front, int rear)
+
+    void swap(T *a, T *b)
     {
-        void swap(int *a, int *b)
+        T t = *a;
+        *a = *b;
+        *b = t;
+    }
+
+    int partition(T *arr, int low, int high)
+    {
+        int pivot = arr[high]; // pivot
+        int i = (low - 1);     // Index of smaller element
+
+        for (int j = low; j <= high - 1; j++)
         {
-            int t = *a;
-            *a = *b;
-            *b = t;
+            // If current element is smaller than the pivot
+            if (arr[j] < pivot)
+            {
+                i++; // increment index of smaller element
+                swap(&arr[i], &arr[j]);
+            }
         }
+        swap(&arr[i + 1], &arr[high]);
+        return (i + 1);
+    }
+
+    void sort(T *arr, int low, int high)
+    {
+        if (low < high)
+        {
+            /* pi is partitioning index, arr[p] is now  
+        at right place */
+            int pi = partition(arr, low, high);
+
+            // Separately sort elements before
+            // partition and after partition
+            sort(arr, low, pi - 1);
+            sort(arr, pi + 1, high);
+        }
+    }
+    void imp()
+    {
+        sort(A, front, rear);
     }
 };
 
@@ -120,42 +155,13 @@ void result(queue<double> res, int size)
 
 int main()
 {
-    double n = 0;
-    int size = 0;
-    cout << "Please enter the number you shall be modifying: ";
-    cin >> n;
-    cout << "Please enter how many times you'd like to repeat the process: ";
-    cin >> size;
-    if (size <= 3)
-    {
-        cout << "error - size should be \" > 3 \" & \" < 120 \"" << endl;
-        return -1;
-    }
-    int cnt = 1;
-    queue<double> alg;
-    alg.push(n);
-    queue<double> res;
-    res.push(n);
-    for (int i = 0; i < size; i++)
-    {
-
-        // Follow the progression by using a second queue
-        if (cnt == 1)
-        {
-            alg.push(alg.Front() + 1);
-            res.push(alg.Front() + 1);
-            cnt = 2;
-        }
-        else if (cnt == 2)
-        {
-            alg.push(2 * alg.Front());
-            res.push(2 * alg.Front());
-            alg.pop();
-            cnt = 1;
-        }
-    }
-
-    result(res, size);
+    queue<int> noice;
+    noice.push(9);
+    noice.push(7);
+    noice.push(10);
+    noice.push(3);
+    noice.imp();
+    noice.print();
 
     return 0;
 }

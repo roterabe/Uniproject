@@ -29,6 +29,7 @@ public:
     bool isRoot(int pos);
     bool hasLeft(int pos);
     bool hasRight(int pos);
+    int remove();
 
 private:
     void destroy_tree(node *leaf);
@@ -41,6 +42,8 @@ private:
     int last(int &key, int &maxlevel, node *leaf);
     bool hasLeft(int pos, node *leaf);
     bool hasRight(int pos, node *leaf);
+    int remove(node *leaf);
+    void infix(node *leaf, int &key, int &pos);
 
     node *roote;
 };
@@ -55,6 +58,36 @@ btree::~btree()
     destroy_tree();
 }
 
+int btree::remove()
+{
+    return remove(roote);
+}
+
+int btree::remove(node *leaf)
+{
+    int key = -1;
+    // int maxlevel = -1;
+    int pos = -1;
+    infix(leaf, key, pos);
+    // search(leaf, key, 0, maxlevel);
+    int par = (pos - 1) / 2;
+    int element;
+    if (hasLeft(par))
+    {
+        leaf->left->pos = par;
+        element = leaf->left->value;
+        leaf->left = NULL;
+    }
+    else
+    {
+        leaf->right->pos = par;
+        element = leaf->right->right->value;
+        leaf->right = NULL;
+    }
+
+    return pos;
+}
+
 bool btree::hasLeft(int pos)
 {
     return hasLeft(pos, roote);
@@ -64,8 +97,26 @@ bool btree::hasLeft(int pos, node *leaf)
 {
     int key = -1;
     int maxlevel = -1;
-    search(leaf, key, 0, maxlevel);
+    infix(leaf, key, maxlevel);
+    //search(leaf, key, 0, maxlevel);
     if (2 * pos + 1 <= maxlevel)
+        return true;
+    else
+        return false;
+}
+
+bool btree::hasRight(int pos)
+{
+    return hasRight(pos, roote);
+}
+
+bool btree::hasRight(int pos, node *leaf)
+{
+    int key = -1;
+    int maxlevel = -1;
+    infix(leaf, key, maxlevel);
+    //search(leaf, key, 0, maxlevel);
+    if (2 * pos + 2 <= maxlevel)
         return true;
     else
         return false;
@@ -194,6 +245,22 @@ void btree::add(int key)
     }
 }
 
+void btree::infix(node *leaf, int &key, int &pos)
+{
+    if (leaf != NULL)
+    {
+        if (true)
+        {
+            pos = leaf->pos;
+            //pos = (pos - 1) / 2;
+            //cout << leaf->pos << " ";
+            key = leaf->value;
+        }
+        infix(leaf->left, key, pos);
+        infix(leaf->right, key, pos);
+    }
+}
+
 void btree::search(node *leaf, int &key, int level, int &maxlevel)
 {
 
@@ -212,14 +279,6 @@ void btree::search(node *leaf, int &key, int level, int &maxlevel)
     }
 }
 
-/*void btree::search(node *leaf, int &key, int &maxlevel, int level)
-{
-    int key = 0;
-    int level = 0;
-    int maxlevel = 0;
-    return search(roote, key, level, maxlevel);
-}
-*/
 void btree::destroy_tree()
 {
     destroy_tree(roote);
@@ -237,10 +296,14 @@ int main()
     tree->add(5);
     tree->add(8);
     tree->add(11);
-    tree->add(18);
+    //tree->add(18);
     tree->root();
+    // cout<<tree->last()<<" ";
+    //cout << tree->remove() << "\n";
+    //tree->root();
+    cout << tree->remove();
 
-    cout << tree->hasLeft(6) << endl;
+    //cout << tree->hasLeft(6) << endl;
 
     delete tree;
 }

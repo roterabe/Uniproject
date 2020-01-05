@@ -23,6 +23,16 @@ public:
         *one = *two;
         *two = temp;
     }
+    void swaper(it &one, it &two)
+    {
+        it temp = one;
+        one = two;
+        two = temp;
+    }
+    it beginning()
+    {
+        return A.begin();
+    }
     T PARENT(const int pos)
     {
         return (pos - 1) / 2;
@@ -33,7 +43,7 @@ public:
     }
     int reverse(it &pos)
     {
-        return pos - A.begin();
+        return distance(A.begin(), pos);
     }
 
     T RETEL(T pos)
@@ -109,6 +119,14 @@ public:
             return A[A.size() - 1];
         }
     }
+    T largestnumber(T num)
+    {
+        return A[num - 1];
+    }
+    T smallestnumber(T num)
+    {
+        return A[A.size() - num];
+    }
 
     T root()
     {
@@ -161,50 +179,10 @@ private:
         // call heapify-down on the child
         if (largest != pos1)
         {
-            swap(pos1, largest);
-            heapify_down(*largest);
+            iter_swap(pos1, largest);
+            heapify_down(B.reverse(largest));
         }
     }
-
-    void heapify_up(int pos)
-    {
-        it parpos = B.convert((pos - 1) / 2);
-        it pos1 = B.convert(pos);
-        int index = B.reverse(pos1);
-        while (!B.isRoot(index))
-        {
-            cout << *parpos;
-            cout << "swag";
-            if (*parpos < *pos1)
-            {
-                cout << "yolo";
-                swapp(parpos, pos1);
-                parpos = pos1;
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
-    /* {
-        it parpos = B.convert((pos - 1) / 2);
-        cout << *parpos;
-        it pos1 = B.convert(pos);
-        int comp = *parpos;
-        int comp1 = *pos1;
-        // check if node at index pos and its parent violates
-        // the heap property
-        if (comp > comp1)
-        {
-            cout << "NOICE";
-            // swap the two if heap property is violated
-            swapp(pos1, parpos);
-            int index = B.reverse(parpos);
-            // call Heapify-up on the parent
-            heapify_up(index);
-        }
-    }*/
 
 public:
     T size()
@@ -215,29 +193,59 @@ public:
     {
         return size() == 0;
     }
-    void insert(int key)
+    T largest(T num)
+    {
+        int large = B.largestnumber(num);
+        cout << "The " << num << " th LARGEST element in the sequence is " << large << ".";
+        return large;
+    }
+    T smallest(T num)
+    {
+        int small = B.smallestnumber(num);
+        cout << "The " << num << " th SMALLEST element in the sequence is " << small << ".";
+        return small;
+    }
+
+    void insert1(int key)
     {
         B.add(key);
         int pos = B.size() - 1;
-        int changepos = pos;
-        while (!B.isRoot(changepos))
+        if (B.size() > 1)
         {
-            //cout << *parpos;
-            //cout << "swag";
-            cout << changepos << " ";
-            it parpos = B.convert(changepos / 2);
-            it pos1 = B.convert(changepos);
-            //cout << *parpos << " ";
-            if (*parpos > *pos1)
+            while (!B.isRoot(pos))
             {
-                // cout << "yolo";
-                swapp(parpos, pos1);
-                changepos = B.reverse(parpos);
-                //pos1 = parpos;
+                it one = B.convert(pos);
+                int e = B.reverse(one);
+                it par = B.convert(e / 2);
+                if (*par < *one)
+                {
+                    int temp = *one;
+                    *one = *par;
+                    *par = temp;
+                    one = par;
+                    e = B.reverse(one);
+                    pos = e;
+                }
+                else
+                {
+                    break;
+                }
             }
-            else
+            for (int i = 0; i < B.size() - 1; i++)
             {
-                break;
+                it one = B.beginning();
+                it par;
+                for (int j = 0; j < B.size() - i - 1; j++)
+                {
+                    par = one + 1;
+                    if (*one < *par)
+                    {
+                        int temp = *one;
+                        *one = *par;
+                        *par = temp;
+                    }
+                    one = par;
+                }
             }
         }
     }
@@ -271,18 +279,25 @@ int main()
     PriorityQueue<int> pq;
     int size = 0;
     cin >> size;
+    int input = 0;
+    int index = 0;
+    int index1 = 0;
     for (int i = 0; i < size; i++)
     {
-        
+        cin >> input;
+        pq.insert1(input);
     }
 
-    pq.insert(10);
-    pq.insert(8);
-    pq.insert(9);
-    pq.insert(11);
-    pq.insert(12);
-    cout << pq.size() << "\n";
-    cout << pq.min() << "\n";
+    cin >> index >> index1;
+    double large = pq.largest(index1);
+    cout << endl
+         << endl;
+    double small = pq.smallest(index);
+    cout << endl;
+    cout << "The sum of 3th SMALLEST and 2th LARGEST element in the sequence is " << large + small << "." << endl
+         << endl;
+    cout << "The average of 3th SMALLEST and 2th LARGEST element in the sequence is " << (small + large) / 2 << "." << endl
+         << endl;
     pq.print();
 
     return 0;
@@ -306,6 +321,6 @@ int main()
     empty() – Връща true, ако приоритетната опашка е празна и false, в противен случай. - yes
     insert(e) - Вмъква елемента e в приоритетната опашка; - yes
     min() – Връща елемента с най-малък ключ(стойност), т.е. елемент, чийто ключ(стойност) е по-малък от или равен на този на всеки друг елемент в приоритетната опашка. - yes 
-    removeMin() - Премахване от приоритетната опашка елемента с най-малък ключ (стойност). - 
+    removeMin() - Премахване от приоритетната опашка елемента с най-малък ключ (стойност). - yes.
 
 */

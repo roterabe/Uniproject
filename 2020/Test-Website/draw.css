@@ -5,12 +5,17 @@ body {
     background-size: auto auto;
 }
 
-header {
+.header {
     padding: 80px;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 70px;
     color: rgb(255, 255, 255);
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
 }
 
 
@@ -19,7 +24,7 @@ header {
 .navbar {
     overflow: hidden;
     /* Hide overflow */
-    background-color: #333;
+    background-color: rgb(39, 39, 39);
     /* Dark background color */
 }
 
@@ -38,6 +43,7 @@ header {
     padding: 14px 20px;
     /* Add some padding */
     text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
     /* Remove underline */
 }
 
@@ -57,4 +63,62 @@ header {
     /* Grey background color */
     color: black;
     /* Black text color */
+}
+
+
+/* Create two unequal columns that float next to each other */
+
+
+/* Left column */
+
+.leftcolumn {
+    float: left;
+    width: 70%;
+    padding-left: 27px;
+}
+
+
+/* Right column */
+
+.rightcolumn {
+    float: right;
+    width: 25%;
+    /*padding-left: 10px;*/
+}
+
+
+/* Fake image */
+
+.fakeimg {
+    background-color: #aaa;
+    width: 90%;
+    padding: 20px;
+}
+
+
+/* Add a card effect for articles */
+
+.card {
+    background-color: rgb(98, 98, 98);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* Footer */
+
+.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
 }

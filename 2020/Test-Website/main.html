@@ -5,46 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href=draw.css>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
+    <script>
+        src = "function.js"
+    </script>
     <div class="header">
-        <header>Pish mi qjkata</header>
+        <header>Day in the life of:</header>
     </div>
-    <div class="navbar">
-        <a href="#">Link</a>
-        <a href="#">Link</a>
-        <a href="#">Link</a>
-        <a href="#" class="right">Link</a>
+    <div class="topnav" id="topnavigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="javascript:void(0)" href="function.js" class="icon" onclick="smallnav()">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
 
     <div class="row">
         <div class="leftcolumn">
             <div class="card">
-                <h2 style="color: white;">TITLE HEADING</h2>
-                <h5 style="color: white;">Title description, Dec 7, 2017</h5>
+                <h1>TITLE HEADING</h1>
+                <h2>Title description, Dec 7, 2017</h2>
                 <p>Some text..</p>
             </div>
             <div class="card">
-                <h2 style="color: white;">TITLE HEADING</h2>
-                <h5 style="color: white;">Title description, Sep 2, 2017</h5>
+                <h1>TITLE HEADING</h1>
+                <h2>Title description, Sep 2, 2017</h2>
 
                 <p>Some text..</p>
             </div>
         </div>
         <div class="rightcolumn">
             <div class="card">
-                <h2 style="color: white;">About Me</h2>
+                <h1>About Me</h1>
                 <p>I'm generally just a normal human</p>
                 <p>doing human things whilst</p>
                 <p>listening to human music.</p>
             </div>
             <div class="card">
-                <h3 style="color: white;">Popular Post</h3>
+                <h1>Popular Post</h1>
 
             </div>
             <div class="card">
-                <h3 style="color: white;">Follow Me</h3>
+                <h1>Follow Me</h1>
                 <p>Some text..</p>
             </div>
         </div>

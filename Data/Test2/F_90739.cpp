@@ -1,5 +1,4 @@
 #include <iostream>
-#include <list>
 #include <vector>
 #include <algorithm>
 #include <iomanip>
@@ -9,6 +8,7 @@ using namespace std;
 template <typename K, typename V>
 class Map
 {
+public:
     class Pair
     {
     public:
@@ -35,8 +35,7 @@ class Map
         V Value;
     };
 
-public:
-    typedef typename list<Pair>::iterator It;
+    typedef typename vector<Pair>::iterator It;
 
     void print();
 
@@ -46,11 +45,11 @@ public:
     }
     It begin()
     {
-        Cont.begin();
+        return Cont.begin();
     }
     It end()
     {
-        Cont.end();
+        return Cont.end();
     }
     void erase(const K &k)
     {
@@ -74,11 +73,23 @@ public:
     {
         for (It p = Cont.begin(); p != Cont.end(); p++)
         {
-            if (p.returnKey() == k)
+            if ((*p).returnKey() == k)
                 return p;
         }
         return end();
     }
+    V getVal(const K &k)
+    {
+        for (It p = Cont.begin(); p != Cont.end(); p++)
+        {
+            if ((*p).returnKey() == k)
+            {
+                return (*p).returnVal();
+            }
+        }
+        return 0;
+    }
+
     It put(const K &k, const V &v)
     {
         Pair NPair = Pair(k, v);
@@ -98,64 +109,66 @@ public:
     }
 
 private:
-    list<Pair> Cont;
+    vector<Pair> Cont;
 };
 
 template <typename K, typename V>
 void Map<K, V>::print()
 {
     Map<K, V>::Pair nPair;
-    cout << "[ ";
+    cout << setw(6) << "Items" << setw(11) << "Numbers" << endl;
     for (It p = Cont.begin(); p != Cont.end(); p++)
     {
         nPair = *p;
-        cout << nPair.returnVal() << " ";
+        cout << setw(4) << nPair.returnKey() << setw(10) << nPair.returnVal() << endl;
     }
-    cout << "]";
+}
+
+template <typename T, typename E>
+void function(vector<T> Vec, Map<T, E> &M)
+{
+    string word = "Test";
+    string newword = "Test1";
+    int count = 0;
+    for (int i = 0; i < Vec.size(); i++)
+    {
+        //word = Vec[i];
+        //M.put(word, count);
+        newword = Vec[i];
+        if (M.find(newword) != M.end())
+        {
+            count = M.getVal(newword);
+            count++;
+            M.put(newword, count);
+        }
+        else if (M.find(newword) == M.end())
+        {
+            count = 1;
+            M.put(newword, count);
+        }
+    }
 }
 
 int main()
 {
-    Map<int, char> M;
-    vector<char> Mem;
-    vector<char> Vec;
-    cout << "Enter string: "
+    Map<string, int> M;
+    int S;
+    cout << "Please enter size:"
          << "\n";
+    cin >> S;
+    int rep = 0;
+    cout << "Please enter amount of words to print: "
+         << "\n";
+    cin >> rep;
+    vector<string> words(S);
     string input;
-    cin >> input;
-    for (int i = 0; i < input.size(); i++)
-    {
-        Vec.push_back(input[i]);
-    }
-    cout << "Enter number of non-repeating elements: "
+    cout << "Please enter words accordingly: "
          << "\n";
-    int k = 0;
-    cin >> k;
-    cout << "shsh";
-
-    for (int i = 0; i < Vec.size() - 1; i++)
+    for (int i = 0; i < S; i++)
     {
-        char rem = Vec[i];
-        //char save = rem;
-
-        Mem.push_back(rem);
-        //cout << "1";
-        for (int j = 1; j < Vec.size(); j++)
-        {
-            cout << rem;
-            //cout << rem << " ";
-            if (rem == Vec[j])
-            {
-                Mem.pop_back();
-                break;
-            }
-        }
+        cin >> input;
+        words.push_back(input);
     }
-    for (int i = 0; i < Mem.size(); i++)
-    {
-        M.put(i, Mem[i]);
-    }
+    function(words, M);
     M.print();
-
-    return 0;
 }

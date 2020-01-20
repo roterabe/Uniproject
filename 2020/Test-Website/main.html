@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href=draw.css>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        function smallnav() {
-            var x = document.getElementById("topnavigation");
-            if (x.className === "topnav") {
-                return x.className += " responsive";
-            } else {
-                return x.className = "topnav";
-            }
-        }
-    </script>
+    <title>Day in the life of:</title>
+    <script src="function.js"></script>
 </head>
 
 <body>
@@ -25,10 +17,10 @@
     </div>
     <div class="topnav" id="topnavigation">
         <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
+        <a href="#recent">Recent</a>
         <a href="#contact">Contact</a>
         <a href="#about">About</a>
-        <a href="#" class="icon" onclick="return smallnav()">
+        <a href="#" class="icon" onclick="smallnav()">
             <i class="fa fa-bars"></i>
         </a>
     </div>
@@ -64,6 +56,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

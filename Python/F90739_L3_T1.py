@@ -13,4 +13,5 @@ for i in range(1, (len(sys.argv)-1)):
         else:
             result += chr((ord(letter) + int(key) - 97) % 26 + 97)
     if(i == (len(sys.argv))-2):
+        print("Key = " + str((sys.argv[len(sys.argv)-1])))
         print(str(result))

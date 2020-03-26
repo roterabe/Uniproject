@@ -5,7 +5,7 @@ public class Director {
     Director() {
     }
 
-    public void setDir(int age, String name) {
+    public Director(int age, String name) {
         this.age = age;
         this.name = name;
     }

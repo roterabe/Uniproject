@@ -1,6 +1,5 @@
 public class Client {
-    int hours;
-    int cost;
+    private int hours;
 
     public Client(int hours) {
         this.hours = hours;
@@ -12,6 +11,10 @@ public class Client {
 
     public void display() {
         System.out.println("Hours to book: " + hours);
+    }
+
+    public void rent() {
+        
     }
 
 }

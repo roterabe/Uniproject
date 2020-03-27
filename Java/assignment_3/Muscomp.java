@@ -63,8 +63,9 @@ public class Muscomp {
         return studio.left();
     }
 
-    public void revenueStatus() {
-        revenue = (8 - studio.left()) * currprice;
+    public void revenueStatus(int hours) {
+        //revenue = (8 - studio.left()) * currprice;
+        revenue += hours * currprice;
         System.out.println(compName + " has made " + revenue + ".lv" + " in revenue.");
     }
 

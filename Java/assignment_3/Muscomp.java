@@ -23,13 +23,25 @@ public class Muscomp {
 
     public void compareComp(Muscomp company) {
         String companyName = getName();
-        String companyName2 = company.getName();
+        String companyName1 = company.getName();
         if (this.currprice > company.currprice)
-            System.out.println(companyName + " is more expensive than " + companyName2);
+            System.out.println(companyName + " is more expensive than " + companyName1);
         else if (this.currprice < company.currprice)
-            System.out.println(companyName2 + " is more expensive.");
+            System.out.println(companyName1 + " is more expensive.");
         else
-            System.out.println(companyName + " costs as much as " + companyName2);
+            System.out.println(companyName + " costs as much as " + companyName1);
+    }
+
+    public void compareDir(Muscomp company) {
+        String companyName = getName();
+        String companyName1 = company.getName();
+        if (this.director.getDirectorAge() > company.director.getDirectorAge()) {
+            System.out.println(companyName + "'s director is older than " + companyName1 + "'s director.");
+        } else if (this.director.getDirectorAge() < company.director.getDirectorAge()) {
+            System.out.println(companyName1 + "'s director is older than " + companyName + "'s director.");
+        } else {
+            System.out.println("Both companies' directors are of equal age.");
+        }
     }
 
     public void changePrice(double price) {
@@ -38,7 +50,8 @@ public class Muscomp {
             System.out.println("The price for " + getName() + " is " + currprice + ".lv");
         } else {
             currprice = minprice;
-            System.out.println("The price cannot be below the minimum. " + "Setting price for " + getName() + " to..: " + currprice + ".lv");
+            System.out.println("The price cannot be below the minimum. " + "Setting price for " + getName() + " to..: "
+                    + currprice + ".lv");
         }
     }
 
@@ -64,7 +77,7 @@ public class Muscomp {
     }
 
     public void revenueStatus(int hours) {
-        //revenue = (8 - studio.left()) * currprice;
+        // revenue = (8 - studio.left()) * currprice;
         revenue += hours * currprice;
         System.out.println(compName + " has made " + revenue + ".lv" + " in revenue.");
     }

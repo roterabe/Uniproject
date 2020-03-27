@@ -32,13 +32,13 @@ public class Muscomp {
             System.out.println(companyName + " costs as much as " + companyName2);
     }
 
-    public void changeValue(double price) {
+    public void changePrice(double price) {
         if (price >= minprice) {
             currprice = price;
-            System.out.println("The price is " + currprice + ".lv");
+            System.out.println("The price for " + getName() + " is " + currprice + ".lv");
         } else {
             currprice = minprice;
-            System.out.println("The price cannot be below the minimum. " + "Setting to..: " + currprice + ".lv");
+            System.out.println("The price cannot be below the minimum. " + "Setting price for " + getName() + " to..: " + currprice + ".lv");
         }
     }
 
@@ -47,7 +47,7 @@ public class Muscomp {
         double newprice = currprice - discount;
         if (newprice >= minprice) {
             currprice = newprice;
-            System.out.println("The discount gives you " + currprice + ".lv an hour.");
+            System.out.println("The discount gives you " + currprice + ".lv an hour for " + getName() + ".");
         } else {
             currprice = minprice;
             System.out.println(
@@ -74,13 +74,13 @@ public class Muscomp {
         if (revenue > 0) {
             money = revenue / 1.95;
             money1 = revenue / 1.78;
-            System.out.println("Revenue in dollars: " + String.format("%.2f", money1));
-            System.out.println("Revenue in euro: " + String.format("%.2f", money));
+            System.out.println("Revenue in dollars for " + getName() + ": " + String.format("%.2f", money1));
+            System.out.println("Revenue in euro for " + getName() + ": " + String.format("%.2f", money));
         } else {
             money = 0;
             money1 = 0;
-            System.out.println("Revenue in dollars: " + String.format("%.2f", money1));
-            System.out.println("Revenue in euro: " + String.format("%.2f", money));
+            System.out.println("Revenue in dollars for " + getName() + ": " + String.format("%.2f", money1));
+            System.out.println("Revenue in euro for " + getName() + ": " + String.format("%.2f", money));
         }
     }
 }

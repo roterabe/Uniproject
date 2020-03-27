@@ -6,7 +6,9 @@ public class Main {
         Client cl1 = new Client(6);
         Studio studio1 = new Studio();
         Muscomp company = new Muscomp("Radio1", dir, studio1);
+        Muscomp company1 = new Muscomp("Nova", dir, studio1);
         cl.rent(company);
         cl1.rent(company);
+        company.convertMoney();
     }
 }

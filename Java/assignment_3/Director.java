@@ -15,4 +15,11 @@ public class Director {
         System.out.println("Director age: " + age);
     }
 
+    public String getDirectorName() {
+        return name;
+    }
+
+    public int getDirectorAge() {
+        return age;
+    }
 }

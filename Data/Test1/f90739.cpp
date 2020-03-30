@@ -1,135 +1,181 @@
-/* C++ program to implement basic stack 
-   operations */
-#include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
-#define MAX 1000
+int const size = 120;
 
-//Implementation of Stack with template and class
 template <typename T>
-class Stack
+class queue
 {
-    int top;
-
 public:
-    int a[MAX]; // Maximum size of Stack
+    queue();  // constructor
+    ~queue(); // destructor
+    queue(queue const &);
+    queue &operator=(queue const &); // assigns
+    void push(T const &);            // adds element to the end of the queue
+    int pop();                       // removes first element in queue
+    void print();                    // print elements in queue
+    T front()                        // first element in queue
+    {
+        if (isEmpty())
+        {
+            cout << "Empty queue access - err" << endl;
+            return -1;
+        }
 
-    Stack() { top = -1; }
-    bool push(T x);
-    void pop();
-    T peek();
-    bool isEmpty();
+        return queueArr[front];
+    }
+    bool isEmpty() const { return (n == 0); }
+    int queueSize() const { return (n); }
+
+private:
+    int front, rear, n;
+    T *queueArr;
+    void copyqueue(queue const &);
 };
-template <typename T>
-bool Stack<T>::push(T x)
+
+void result(queue<int> res, int size)
 {
-    if (top >= (MAX - 1))
+    for (int i = 0; i < size; i++)
     {
-        cout << "Stack Overflow";
-        return false;
+        cout << res.front() << " ";
+        res.pop();
     }
-    else
-    {
-        a[++top] = x;
-        //cout << x << " pushed into stack\n";
-        return true;
-    }
+    cout << endl;
 }
-template <typename T>
-void Stack<T>::pop()
-{
-    if (top < 0)
-    {
-        cout << "Stack Underflow";
-        //return 0;
-    }
-    else
-    {
-        int x = a[top--];
-        //return x;
-    }
-}
-template <typename T>
-T Stack<T>::peek()
-{
-    if (top < 0)
-    {
-        cout << "Stack is Empty";
-        return 0;
-    }
-    else
-    {
-        int x = a[top];
-        return x;
-    }
-}
-template <typename T>
-bool Stack<T>::isEmpty()
-{
-    return (top < 0);
-}
-
-bool areParanthesisBalanced(string expr)
-{
-    Stack<char> s;
-    char x;
-
-    // insert all opening brackets in expression
-    for (int i = 0; i < expr.length(); i++)
-    {
-        if (expr[i] == '(' || expr[i] == '[' || expr[i] == '{')
-        {
-            // Push the element in the stack
-            s.push(expr[i]);
-            continue;
-        }
-
-        //remove mathing bracket from top of stack
-
-        switch (expr[i])
-        {
-        case ')':
-
-            x = s.peek();
-            s.pop();
-            if (x == '{' || x == '[')
-                return false;
-            break;
-
-        case '}':
-
-            x = s.peek();
-            s.pop();
-            if (x == '(' || x == '[')
-                return false;
-            break;
-
-        case ']':
-
-            x = s.peek();
-            s.pop();
-            if (x == '(' || x == '{')
-                return false;
-            break;
-        }
-    }
-
-    // Check Empty Stack
-    return (s.isEmpty());
-}
-
-//take input and test it
 
 int main()
 {
-    string expr;
-    cin >> expr;
+    int n = 0;
+    int size = 0;
+    cout << "Please enter the number you shall be modifying: ";
+    cin >> n;
+    cout << "Please enter how many times you'd like to repeat the process: ";
+    cin >> size;
+    if (size <= 3)
+    {
+        cout << "error - size should be \" > 3 \" & \" < 120 \" " << endl;
+        return -1;
+    }
+    int cnt = 1;
+    queue<int> alg;
+    alg.push(n);
+    queue<int> res;
+    res.push(n);
+    for (int i = 0; i < size; i++)
+    {
 
-    if (areParanthesisBalanced(expr))
-        cout << "Balanced" << endl;
-    else
-        cout << "Not Balanced" << endl;
+        // Follow the progression by using a second queue
+        if (cnt == 1)
+        {
+            alg.push(alg.front() + 1);
+            res.push(alg.front() + 1);
+            cnt = 2;
+        }
+        else if (cnt == 2)
+        {
+            alg.push(2 * alg.front());
+            res.push(2 * alg.front());
+            alg.pop();
+            cnt = 1;
+        }
+    }
+
+    result(res, size);
 
     return 0;
+}
+
+//Construct
+template <typename T>
+queue<T>::queue()
+{
+    queueArr = new T[size];
+    n = 0;
+    front = 0;
+    rear = 0;
+}
+
+//Destructor
+template <typename T>
+queue<T>::~queue()
+{
+    delete[] queueArr;
+}
+
+template <typename T>
+queue<T>::queue(queue<T> const &r)
+{
+    copyqueue(r);
+}
+
+//Assign operator
+template <typename T>
+queue<T> &queue<T>::operator=(queue<T> const &r)
+{
+    if (this != &r)
+    {
+        delete[] queueArr;
+        copyqueue(r);
+    }
+
+    return *this;
+}
+
+//Add element at end of queue
+template <typename T>
+void queue<T>::push(T const &x)
+{
+    if (n == size)
+    {
+        cout << "Not possible \n";
+    }
+    else
+    {
+        queueArr[rear] = x;
+        n++;
+        rear++;
+        rear = rear % size;
+    }
+}
+
+//Remove element at beggining of queue
+template <typename T>
+int queue<T>::pop()
+{
+    if (n > 0)
+    {
+        T x = queueArr[f];
+        n--;
+        front++;
+        front = front % size;
+        return 1;
+    }
+    else
+        return 0;
+}
+
+template <typename T>
+void queue<T>::copyqueue(queue<T> const &r)
+{
+    queueArr = new T[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        queueArr[i] = r.queueArr[i];
+
+        n = r.n;
+        front = r.front;
+        rear = r.rear;
+    }
+}
+
+
+template <typename T>
+void queue<T>::print()
+{
+    T x;
+    while (pop(x))
+        cout << x << " ";
+    cout << endl;
 }

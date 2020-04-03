@@ -9,7 +9,7 @@ public class Device {
     }
 
     public String toString() {
-        return manufacturor + " " + minGuarantee;
+        return manufacturor;
     }
 
     public void guaranteePeriod() {
@@ -28,7 +28,7 @@ class Oven extends Device {
     }
 
     public String toString() {
-        return manufacturor + " " + type + " " + guarantee;
+        return manufacturor + " " + type;
     }
 
     public void guaranteePeriod() {
@@ -47,7 +47,7 @@ class Washer extends Device {
     }
 
     public String toString() {
-        return manufacturor + " " + type + " " + guarantee;
+        return manufacturor + " " + type;
     }
 
     public void guaranteePeriod() {

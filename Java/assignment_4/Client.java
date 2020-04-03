@@ -12,7 +12,7 @@ public class Client {
         this.name = name;
     }
 
-    public int getMoney() {
+    int getMoney() {
         return money;
     }
 
@@ -20,19 +20,18 @@ public class Client {
         return name;
     }
 
-    public void Bought(Device device) {
+    void Bought(Device device) {
         this.device = device;
         money = money - device.getPrice();
     }
 
-    public void Bought(Oven oven) {
+    void Bought(Oven oven) {
         this.oven = oven;
         money = money - oven.getPrice();
     }
 
-    public void Bought(Washer washer) {
+    void Bought(Washer washer) {
         this.washer = washer;
-        System.out.println(washer.getPrice());
         money = money - washer.getPrice();
     }
 

@@ -38,7 +38,7 @@ class Oven extends Device {
     }
 
     @Override
-    public int guaranteePeriod() {
+    int guaranteePeriod() {
         if (type == "gas")
             return super.guaranteePeriod() + 12;
         return super.guaranteePeriod();
@@ -66,7 +66,7 @@ class Washer extends Device {
     }
 
     @Override
-    public int guaranteePeriod() {
+    int guaranteePeriod() {
         if (type == "yes")
             return super.guaranteePeriod() + super.guaranteePeriod() / 2;
         return super.guaranteePeriod();

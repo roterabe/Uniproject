@@ -10,7 +10,7 @@ public class Shop {
         this.name = name;
     }
 
-    public void Sell(Client client, Device device) {
+    void Sell(Client client, Device device) {
         this.client = client;
         this.device = device;
         int price = device.getPrice();
@@ -26,7 +26,7 @@ public class Shop {
         }
     }
 
-    public void Sell(Client client, Oven oven) {
+    void Sell(Client client, Oven oven) {
         this.client = client;
         this.oven = oven;
         int price = oven.getPrice();
@@ -42,7 +42,7 @@ public class Shop {
         }
     }
 
-    public void Sell(Client client, Washer washer) {
+    void Sell(Client client, Washer washer) {
         this.client = client;
         this.washer = washer;
         int price = washer.getPrice();

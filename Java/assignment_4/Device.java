@@ -1,56 +1,78 @@
 
 public class Device {
-    String manufacturor;
-    static int minGuarantee = 12;
+    Manufacturer manufacturer;
+    static int minGuarantee = 6;
     static int minPrice = 100;
 
-    Device() {
-
+    Device(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public String toString() {
-        return manufacturor;
+        return manufacturer.getName();
     }
 
     public void guaranteePeriod() {
         System.out.println("The guarantee is " + minGuarantee + " months.");
     }
+
+    int getPrice() {
+        return minPrice;
+    }
 }
 
 class Oven extends Device {
-    String manufacturor;
+    Manufacturer manufacturer;
     String type;
-    int guarantee = minGuarantee + 12;
+    int guarantee = minGuarantee;
     int price = minPrice + 50;
 
-    Oven() {
-
+    Oven(Manufacturer manufacturer, String type) {
+        super(manufacturer);
+        this.type = type;
+        guarantee = guarantee + manufacturer.getExt();
     }
 
     public String toString() {
-        return manufacturor + " " + type;
+        return manufacturer.getName() + " " + type;
     }
 
     public void guaranteePeriod() {
         System.out.println("The guarantee is " + guarantee + " months.");
+    }
+
+    int getPrice() {
+        return price;
     }
 }
 
 class Washer extends Device {
-    String manufacturor;
+    Manufacturer manufacturer;
     String type;
-    int guarantee = minGuarantee + 12;
+    int rev = 0;
+    int guarantee = minGuarantee;
     int price = minPrice + 100;
 
-    Washer() {
+    Washer(Manufacturer manufacturer, int rev, String dryer) {
+        super(manufacturer);
+        this.rev = rev;
+        type = dryer;
+        guarantee = guarantee + manufacturer.getExt();
 
+        if (dryer == "dryer") {
+            guarantee = guarantee + (minGuarantee / 2);
+        }
     }
 
     public String toString() {
-        return manufacturor + " " + type;
+        return manufacturer.getName() + " : " + type + " : " + rev;
     }
 
     public void guaranteePeriod() {
         System.out.println("The guarantee is " + guarantee + " months.");
+    }
+
+    int getPrice() {
+        return price;
     }
 }

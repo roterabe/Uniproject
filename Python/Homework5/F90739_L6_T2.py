@@ -2,15 +2,11 @@
 
 import wx
 import random
-# import os
 
 
 class Hangman(wx.Frame):
     def __init__(self, parent, id):
 
-        # Set panel to not resize and with static labels.
-        # no_resize = wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BORDER |
-        #                                        wx.MAXIMIZE_BOX)
         super().__init__(
             None, title="Hangman",
             size=(800, 600))

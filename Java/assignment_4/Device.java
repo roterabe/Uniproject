@@ -1,48 +1,51 @@
 
 public class Device {
     Manufacturer manufacturer;
-    static int minGuarantee = 6;
-    static int minPrice = 100;
+    int minGuarantee;
+    int price;
 
-    Device(Manufacturer manufacturer) {
+    Device(Manufacturer manufacturer, int guarantee, int price) {
         this.manufacturer = manufacturer;
+        minGuarantee = guarantee;
+        this.price = price;
     }
 
     public String toString() {
-        return manufacturer.getName();
+        return manufacturer.getName() + " device";
     }
 
-    public void guaranteePeriod() {
-        System.out.println("The guarantee is " + minGuarantee + " months.");
+    int guaranteePeriod() {
+        return minGuarantee + manufacturer.getExt();
     }
 
     int getPrice() {
-        return minPrice;
+        return price;
     }
 }
 
 class Oven extends Device {
     Manufacturer manufacturer;
     String type;
-    int guarantee = minGuarantee;
-    int price = minPrice + 50;
 
-    Oven(Manufacturer manufacturer, String type) {
-        super(manufacturer);
+    Oven(Manufacturer manufacturer, String type, int guarantee, int price) {
+        super(manufacturer, guarantee, price);
         this.type = type;
-        guarantee = guarantee + manufacturer.getExt();
     }
 
+    @Override
     public String toString() {
-        return manufacturer.getName() + " " + type;
+        return super.toString() + " : " + type + " : " + "oven.";
     }
 
-    public void guaranteePeriod() {
-        System.out.println("The guarantee is " + guarantee + " months.");
+    @Override
+    public int guaranteePeriod() {
+        if (type == "gas")
+            return super.guaranteePeriod() + 12;
+        return super.guaranteePeriod();
     }
 
     int getPrice() {
-        return price;
+        return super.getPrice();
     }
 }
 
@@ -50,29 +53,26 @@ class Washer extends Device {
     Manufacturer manufacturer;
     String type;
     int rev = 0;
-    int guarantee = minGuarantee;
-    int price = minPrice + 100;
 
-    Washer(Manufacturer manufacturer, int rev, String dryer) {
-        super(manufacturer);
+    Washer(Manufacturer manufacturer, int rev, String dryer, int guarantee, int price) {
+        super(manufacturer, guarantee, price);
         this.rev = rev;
         type = dryer;
-        guarantee = guarantee + manufacturer.getExt();
-
-        if (dryer == "dryer") {
-            guarantee = guarantee + (minGuarantee / 2);
-        }
     }
 
+    @Override
     public String toString() {
-        return manufacturer.getName() + " : " + type + " : " + rev;
+        return super.toString() + " : " + "washer" + " : " + "has dryer - " + type + " : " + rev + ".";
     }
 
-    public void guaranteePeriod() {
-        System.out.println("The guarantee is " + guarantee + " months.");
+    @Override
+    public int guaranteePeriod() {
+        if (type == "yes")
+            return super.guaranteePeriod() + super.guaranteePeriod() / 2;
+        return super.guaranteePeriod();
     }
 
     int getPrice() {
-        return price;
+        return super.getPrice();
     }
 }

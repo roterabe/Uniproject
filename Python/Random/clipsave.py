@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Usage: ./clipsave.py save <keyword> - Saves coped text to specific word.
+# Usage: ./clipsave.py save <keyword> - Saves coped text to specific word../
 #        ./clipsave.py <keyword> - Loads stored text onto clipboard.
 #        ./clipsave.py list - Loads all stored text with keywords for reference.
 

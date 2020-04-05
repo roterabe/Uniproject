@@ -37,7 +37,7 @@ void maxHeapify(int a[], int n, int p)
 // Separate code for building heap structure. For visual representation.
 void buildMaxHeap(int arr[], int n)
 {
-    for (int i = n / 3 - 1; i >= 0; --i)
+    for (int i = n / 3 - 1; i >= 0; i--)
         maxHeapify(arr, n, i);
 }
 

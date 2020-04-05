@@ -38,6 +38,12 @@
 *.rar
 *.7zip
 
+# Ignore image files
+*.jpg
+*.jpeg
+*.png
+*.bmp
+
 # CMake
 CMakeFiles/
 cmake_install.cmake

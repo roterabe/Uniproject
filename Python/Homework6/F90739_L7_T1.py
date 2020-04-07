@@ -6,9 +6,6 @@ class SchoolMember:
         self.name = name
         self.age = age
 
-    def display(self):
-        print("Name - " + str(name) + " : " + "Age - " + str(age))
-
 
 class Student(SchoolMember):
     def __init__(self, name, age):
@@ -16,35 +13,36 @@ class Student(SchoolMember):
         self.grades = {}
         self.attendance = {}
 
-    def attentCourse(self, sig, year):
+    def attendCourse(self, sig, year):
         self.sig = sig
         self.year = year
         gradel = []
-        self.grades = dict(zip(gradel, year))
+        self.grades = {"grade": gradel, "year": year}
         if sig not in self.attendance.keys():
-            self.attendance.update(zip(sig, self.grades))
+            self.attendance[sig] = dict(self.grades)
 
     def addGrade(self, sig, grade):
         self.sig = sig
         self.grade = grade
-        gradel = []
-        gradel = self.attendance[sig].keys()
-        yearl = self.attendance[sig].values()
-        gradel1 = gradel
-        gradel1.append(grade)
         if self.sig in self.attendance.keys():
-            self.attendance[sig] = dict(zip(gradel1, yearl))
+            self.attendance[sig]["grade"].append(grade)
 
     def getCourses(self):
-        keys = self.attendance.keys()
-        values = self.attendance.values()
-        for x in range (len(keys)):
-            print(keys[x] + values[x])
+        keys = list(self.attendance.keys())
+        values = list(self.attendance.values())
+        for x in range(len(self.attendance)):
+            print(keys[x] + str(values[x]))
 
     def getAvgGrade(self, sig):
         self.sig = sig
-        self.attendance[sig]
-
+        gradel = []
+        sum = 0.0
+        if sig in self.attendance:
+            gradel = self.attendance[sig]["grade"]
+            for x in gradel:
+                sum += x
+            sum = sum/(len(gradel))
+        return round(sum, 2)
 
 
 class Teacher(SchoolMember):
@@ -58,14 +56,14 @@ class Teacher(SchoolMember):
         return self.salary
 
     def addCourse(self, sig, cname):
-        self.sig = sig
-        self.cname = cname
-        self.courses.update(zip(self.sig, self.cname))
+        self.sig = str(sig)
+        self.cname = str(cname)
+        self.courses[self.sig] = self.cname
 
     def getCourses(self):
         keys = []
-        keys = self.courses.keys()
+        keys = list(self.courses.keys())
         values = []
-        values = self.courses.values()
-        for x in range (len(keys)):
+        values = list(self.courses.values())
+        for x in range(len(self.courses)):
             print(keys[x] + " " + values[x])

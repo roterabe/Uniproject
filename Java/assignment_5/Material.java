@@ -4,7 +4,8 @@ public class Material {
     String name;
 
     Material(String name, boolean fragile) {
-        
+        this.name = name;
+        this.fragile = fragile;
     }
 
    public String toString(){

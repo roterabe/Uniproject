@@ -8,8 +8,8 @@ public class Box {
         this.d = d;
     }
 
-    int volume(){
-        int vol = 0;
+    double volume(){
+        double vol = 0;
         vol = w*h*d;
         return vol;
     }

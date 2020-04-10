@@ -10,11 +10,19 @@ public class Element {
 
     }
 
-    void isFragile() {
+    boolean isFragile() {
         if (material.retFragile() == true) {
-            System.out.println("The " + name + " is fragile.");
+            return true;
         } else
-            System.out.println("The " + name + " is not fragile.");
+            return false;
+    }
+
+    String getName(){
+        return material.getName();
+    }
+
+    int getWeight(){
+        return weight;
     }
 
     public String toString()

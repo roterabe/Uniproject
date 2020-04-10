@@ -15,6 +15,10 @@ public class Material {
             return false;
     }
 
+    String getName() {
+        return name;
+    }
+
     public String toString() {
         return "Element name: " + name + ". Is fragile?: " + fragile + ".";
     }

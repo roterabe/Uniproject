@@ -8,7 +8,14 @@ public class Material {
         this.fragile = fragile;
     }
 
-   public String toString(){
+    boolean retFragile() {
+        if (fragile == true) {
+            return true;
+        } else
+            return false;
+    }
+
+    public String toString() {
         return "Element name: " + name + ". Is fragile?: " + fragile + ".";
     }
 }

@@ -1,18 +1,17 @@
 
-public class Element extends Material {
+public class Element {
     int weight;
     String name;
-    boolean fragile;
     Material material;
 
-    Element(Material material, String name, boolean fragile, int weight) {
-        super(name, fragile);
+    Element(Material material, int weight) {
+        this.material = material;
         this.weight = weight;
 
     }
 
     void isFragile() {
-        if (fragile == true) {
+        if (material.retFragile() == true) {
             System.out.println("The " + name + " is fragile.");
         } else
             System.out.println("The " + name + " is not fragile.");

@@ -6,4 +6,8 @@ public enum Contract {
     Contract(double inc) {
         this.inc = inc;
     }
+
+    public double inc() {
+        return inc;
+    }
 }

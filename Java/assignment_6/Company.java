@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Company {
-    String name;
-    int maxEmp = 0;
-    ArrayList<Employee> emp = new ArrayList<Employee>();
+    private String name;
+    private int maxEmp = 0;
+    private ArrayList<Employee> emp = new ArrayList<Employee>();
 
     Company(String name, int maxEmp) {
         this.name = name;

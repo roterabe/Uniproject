@@ -36,8 +36,3 @@ def bisection(a, b, func):
             break
 
     return ("%.2f" % t)
-
-a = input()
-b = input()
-
-print(bisection(a,b,f1))

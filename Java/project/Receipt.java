@@ -20,7 +20,7 @@ public class Receipt {
                 PrintWriter writer = new PrintWriter("receipt-" + cnt + ".txt");
                 writer.println("---------------------------------------");
                 writer.println("Test-receipt-" + cnt + "--------------------------");
-                writer.print("Items: ");
+                writer.print("Items: \n");
                 for (String s : items.keySet())
                         for (Goods g : goods.keySet())
                                 if (s == g.name)

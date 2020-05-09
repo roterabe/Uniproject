@@ -12,7 +12,8 @@ public class Client {
     }
 
     void addToBuy(String item, int number) {
-        int count = shopping_list.containsKey(item) ? shopping_list.get(item) : 0;
+        int count = 0;
+        count = shopping_list.containsKey(item) ? shopping_list.get(item) : 0;
         shopping_list.put(item, number + count);
     }
 

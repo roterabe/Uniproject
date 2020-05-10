@@ -1,8 +1,8 @@
 public class Goods {
-    final int id;
-    String name = "";
+    private final int id;
+    private String name = "";
     private double price = 0;
-    String expiration_date = "";
+    private String expiration_date = "";
 
     Goods(int id, String name, double price, String expiration_date) {
         this.id = id;
@@ -13,6 +13,10 @@ public class Goods {
 
     double getPrice() {
         return price;
+    }
+
+    String getName() {
+        return name;
     }
 
     @Override

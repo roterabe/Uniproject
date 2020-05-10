@@ -18,12 +18,12 @@ public class Receipt {
                 this.cname = cname;
                 this.items = items;
                 PrintWriter writer = new PrintWriter("receipt-" + cnt + ".txt");
-                writer.println("---------------------------------------");
+                writer.println("------------------------------------------");
                 writer.println("Test-receipt-" + cnt + "--------------------------");
                 writer.print("Items: \n");
                 for (String s : items.keySet())
                         for (Goods g : goods.keySet())
-                                if (s == g.name)
+                                if (s == g.getName())
                                         writer.print(s + "  ||  " + items.get(s) + " X " + g.getPrice() + "\n");
                 cnt++;
                 writer.close();

@@ -2,13 +2,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Client {
-    String name = "";
-    double money = 0;
-    Map<String, Integer> shopping_list = new HashMap<String, Integer>();
+    private String name = "";
+    private Map<String, Integer> shopping_list = new HashMap<String, Integer>();
 
-    Client(String name, double money) {
+    Client(String name) {
         this.name = name;
-        this.money = money;
     }
 
     void addToBuy(String item, int number) {

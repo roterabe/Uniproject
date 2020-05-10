@@ -12,7 +12,7 @@ public class Register {
 
     void make_receipt(Map<String, Integer> items, Map<Goods, Integer> goods) {
         try {
-            Receipt r = new Receipt(c.name, items, goods);
+            Receipt r = new Receipt(c.getName(), items, goods);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

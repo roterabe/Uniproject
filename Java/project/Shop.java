@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class Shop {
-    ArrayList<Cashier> workers = new ArrayList<Cashier>();
-    Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
-    Set<Goods> gRemove = new HashSet<Goods>();
-    Set<String> iRemove = new HashSet<String>();
-    int receipt_cnt = 0;
+    private ArrayList<Cashier> workers = new ArrayList<Cashier>();
+    private Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
+    private Set<Goods> gRemove = new HashSet<Goods>();
+    private Set<String> iRemove = new HashSet<String>();
+    private int receipt_cnt = 0;
 
     Shop() {
 
@@ -28,7 +28,7 @@ public class Shop {
                 found = false;
                 for (Map.Entry<Goods, Integer> g : goods.entrySet()) {
                     {
-                        if (s.getKey() == g.getKey().name) {
+                        if (s.getKey() == g.getKey().getName()) {
                             int count = s.getValue();
                             int gcount = g.getValue();
                             if (gcount < count)

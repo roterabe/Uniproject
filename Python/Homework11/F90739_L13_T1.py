@@ -37,7 +37,6 @@ class News(wx.Frame):
 
         self.temp = []
         self.temp1 = []
-        self.index = 0
         self.head = wx.StaticText(self.panel, label="News Feed", pos=(8, 10))
         font = wx.Font(18, wx.DECORATIVE, wx.NORMAL, wx.BOLD)
         self.head.SetFont(font)
@@ -72,8 +71,6 @@ class News(wx.Frame):
             if titl == self.temp[i]:
                 desc = self.temp1[i]
         html = "<html>\n <head></head>\n <body> <p>" + desc + "</p></body>\n </html>"
-        with open('article.html', 'w') as file:
-            file.writelines(html)
         self.html.SetPage(html)
 
 

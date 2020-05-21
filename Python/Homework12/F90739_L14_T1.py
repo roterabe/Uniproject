@@ -17,6 +17,8 @@ class Scope(wx.Frame):
         self.SetBackgroundColour("White")
         self.panel = wx.Panel(self)
         self.panel.SetBackgroundColour("White")
+        self.disp = wx.StaticBitmap(
+            self.panel)
         menubar = wx.MenuBar()
         filemenu = wx.Menu()
         open = wx.MenuItem(filemenu, wx.ID_OPEN, '&Open')
@@ -49,10 +51,9 @@ class Scope(wx.Frame):
         self.image = self.PilImageToWxImage(self.pilimage)
 
         #self.bitmap = wx.Bitmap(self.image)
-        self.disp = wx.StaticBitmap(
-            self.panel)
-        #self.disp.SetBitmap(wx.Bitmap(600,600))
-        self.disp.SetBitmap(wx.BitmapFromImage(self.image))
+        # self.disp = wx.StaticBitmap(
+        #    self.panel)
+        # self.disp.SetBitmap(wx.Bitmap(600,600))
 
     def PilImageToWxImage(self, myPilImage):
 
@@ -64,6 +65,7 @@ class Scope(wx.Frame):
         if myWxImage.HasAlpha():
             dataRGBA = myPilImage.tobytes()[3::4]
             myWxImage.SetAlphaData(dataRGBA)
+        self.disp.SetBitmap(wx.BitmapFromImage(myWxImage))
 
         return myWxImage
 

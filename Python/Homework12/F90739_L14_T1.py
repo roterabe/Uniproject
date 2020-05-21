@@ -13,7 +13,7 @@ class Scope(wx.Frame):
                                                 wx.MAXIMIZE_BOX)
 
         super().__init__(
-            None, title="Scope", style=no_resize, size=(976, 500))
+            None, title="Scope", style=no_resize, size=(1024, 768))
         self.SetBackgroundColour("White")
         self.panel = wx.Panel(self)
         self.panel.SetBackgroundColour("White")
@@ -24,34 +24,48 @@ class Scope(wx.Frame):
         menubar.Append(filemenu, '&File')
         self.SetMenuBar(menubar)
         self.Bind(wx.EVT_MENU, self.menuhandler)
-        
 
     def menuhandler(self, event):
         id = event.GetId()
         if id == wx.ID_OPEN:
-            with wx.FileDialog(self.panel, "Open XYZ file", wildcard="Image files (*.jpg,*.jpeg,*.png)|*.jpg;*.jpeg;*.png",
+            with wx.FileDialog(self.panel, "Open Image file", wildcard="Image files (*.jpg,*.jpeg,*.png)|*.jpg;*.jpeg;*.png",
                                style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST) as file:
 
                 if file.ShowModal() == wx.ID_CANCEL:
-                    return     # the user changed their mind
+                    return
 
-        # Proceed loading the file chosen by the user
                 pathname = file.GetPath()
                 try:
-                    with open(pathname, 'r') as path:
-                        self.displayimage(path)
+                    self.displayimage(pathname)
+
                 except IOError:
                     wx.LogError("Cannot open file '%s'." % newfile)
 
     def displayimage(self, path):
-        self.img = path
-        self.pilimage = Image.open(self.img)
-        self.image = wx.EmptyImage(
-            self.pilimage.size[0], self.pilimage.size[1])
-        self.image.SetData(self.pilimage.convert("RGB").toString())
-        self.image.SetAlphaData(self.pilImage.convert("RGBA").tostring()[3::4])
-        self.bitmap = wx.BitmapFromImage(self.image)
-        self.disp = wx.StaticBitmap(self.panel, 0, pos=(10,15))
+        self.pilimage = Image.open(path)
+        self.pilimage.thumbnail((800, 800))
+        #width, height = self.pilimage.size
+
+        self.image = self.PilImageToWxImage(self.pilimage)
+
+        #self.bitmap = wx.Bitmap(self.image)
+        self.disp = wx.StaticBitmap(
+            self.panel)
+        #self.disp.SetBitmap(wx.Bitmap(600,600))
+        self.disp.SetBitmap(wx.BitmapFromImage(self.image))
+
+    def PilImageToWxImage(self, myPilImage):
+
+        myWxImage = wx.Image(myPilImage.size[0], myPilImage.size[1])
+
+        dataRGB = myPilImage.convert(
+            'RGB').tobytes()    # RGBA --> RGB
+        myWxImage.SetData(dataRGB)
+        if myWxImage.HasAlpha():
+            dataRGBA = myPilImage.tobytes()[3::4]
+            myWxImage.SetAlphaData(dataRGBA)
+
+        return myWxImage
 
 
 app = wx.App()

@@ -13,12 +13,17 @@ class Scope(wx.Frame):
                                                 wx.MAXIMIZE_BOX)
 
         super().__init__(
-            None, title="Scope", style=no_resize, size=(1024, 768))
+            None, title="Scope", style=no_resize, size=(1024, 1024), pos=(0, 0))
         self.SetBackgroundColour("White")
         self.panel = wx.Panel(self)
         self.panel.SetBackgroundColour("White")
+
+        self.info = wx.Panel(self, size=(1024, 324))
+        self.info.SetBackgroundColour("Gray")
+
         self.disp = wx.StaticBitmap(
-            self.panel)
+            self.panel, size=(700, 1000))
+
         menubar = wx.MenuBar()
         filemenu = wx.Menu()
         open = wx.MenuItem(filemenu, wx.ID_OPEN, '&Open')
@@ -26,6 +31,17 @@ class Scope(wx.Frame):
         menubar.Append(filemenu, '&File')
         self.SetMenuBar(menubar)
         self.Bind(wx.EVT_MENU, self.menuhandler)
+
+        self.rotate = wx.Button(
+            self.info, id=0, label="rotate", size=(50, 20), pos=(130, 930))
+        self.rotate.Bind(wx.EVT_BUTTON, self.onclick)
+
+        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(self.panel, flag=wx.EXPAND | wx.ALL)
+        sizer.Add(self.info, flag=wx.EXPAND | wx.ALL)
+
+        self.SetSizer(sizer)
+        self.Centre()
 
     def menuhandler(self, event):
         id = event.GetId()
@@ -45,15 +61,9 @@ class Scope(wx.Frame):
 
     def displayimage(self, path):
         self.pilimage = Image.open(path)
-        self.pilimage.thumbnail((800, 800))
-        #width, height = self.pilimage.size
+        self.pilimage.thumbnail((700, 800))
 
-        self.image = self.PilImageToWxImage(self.pilimage)
-
-        #self.bitmap = wx.Bitmap(self.image)
-        # self.disp = wx.StaticBitmap(
-        #    self.panel)
-        # self.disp.SetBitmap(wx.Bitmap(600,600))
+        self.PilImageToWxImage(self.pilimage)
 
     def PilImageToWxImage(self, myPilImage):
 
@@ -65,9 +75,11 @@ class Scope(wx.Frame):
         if myWxImage.HasAlpha():
             dataRGBA = myPilImage.tobytes()[3::4]
             myWxImage.SetAlphaData(dataRGBA)
-        self.disp.SetBitmap(wx.BitmapFromImage(myWxImage))
+        self.disp.SetBitmap(wx.Bitmap(myWxImage))
 
-        return myWxImage
+    def onclick(self, event):
+            self.pilimage = self.pilimage.rotate(angle=90, expand=True)
+            self.PilImageToWxImage(self.pilimage)
 
 
 app = wx.App()

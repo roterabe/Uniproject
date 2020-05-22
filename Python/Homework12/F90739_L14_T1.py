@@ -36,6 +36,14 @@ class Scope(wx.Frame):
             self.info, id=0, label="rotate", size=(50, 20), pos=(130, 930))
         self.rotate.Bind(wx.EVT_BUTTON, self.onclick)
 
+        self.filename = wx.StaticText(
+            self.info, label="File name:", pos=(20, 10))
+        self.filesize = wx.StaticText(self.info, label="Size:", pos=(20, 25))
+        self.filetype = wx.StaticText(
+            self.info, label="File type:", pos=(20, 40))
+        self.filecolor = wx.StaticText(
+            self.info, label="Color mode:", pos=(20, 55))
+
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(self.panel, flag=wx.EXPAND | wx.ALL)
         sizer.Add(self.info, flag=wx.EXPAND | wx.ALL)
@@ -61,9 +69,10 @@ class Scope(wx.Frame):
 
     def displayimage(self, path):
         self.pilimage = Image.open(path)
+        width, height = self.pilimage.size
         self.pilimage.thumbnail((700, 800))
-
         self.PilImageToWxImage(self.pilimage)
+        self.filesize.SetLabel("Size: " + str(width) + " x" + str(height) + "px")
 
     def PilImageToWxImage(self, myPilImage):
 
@@ -78,8 +87,8 @@ class Scope(wx.Frame):
         self.disp.SetBitmap(wx.Bitmap(myWxImage))
 
     def onclick(self, event):
-            self.pilimage = self.pilimage.rotate(angle=90, expand=True)
-            self.PilImageToWxImage(self.pilimage)
+        self.pilimage = self.pilimage.rotate(angle=90, expand=True)
+        self.PilImageToWxImage(self.pilimage)
 
 
 app = wx.App()

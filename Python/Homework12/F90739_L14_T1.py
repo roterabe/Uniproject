@@ -31,7 +31,9 @@ class Scope(wx.Frame):
         menubar = wx.MenuBar()
         filemenu = wx.Menu()
         open = wx.MenuItem(filemenu, wx.ID_OPEN, '&Open')
+        exit = wx.MenuItem(filemenu, wx.ID_CLOSE, '&Exit')
         filemenu.Append(open)
+        filemenu.Append(exit)
         menubar.Append(filemenu, '&File')
         self.SetMenuBar(menubar)
         self.Bind(wx.EVT_MENU, self.menuhandler)
@@ -64,7 +66,7 @@ class Scope(wx.Frame):
         self.effects.Bind(wx.EVT_TEXT, self.oneffect)
         self.eff = wx.StaticText(self.info, label="Effects: ", pos=(18, 893))
         self.cleareffect = wx.Button(
-            self.info, id=3, label="Reset all", pos=(240, 891), size=(50, 20))
+            self.info, id=3, label="Reset", pos=(240, 891), size=(50, 20))
         self.cleareffect.Bind(wx.EVT_BUTTON, self.onclear)
 
         self.save = wx.Button(
@@ -115,6 +117,9 @@ class Scope(wx.Frame):
                 except IOError:
                     wx.LogError("Cannot open file '%s'." % newfile)
 
+        if id == wx.ID_CLOSE:
+            self.Close()
+
     def displayimage(self, path):
         self.modified = True
         self.pilimage = Image.open(path)
@@ -133,15 +138,15 @@ class Scope(wx.Frame):
             mode += letter
         self.filecolor.SetLabel("Color mode: " + mode)
 
-    def PilImageToWxImage(self, myPilImage):
+    def PilImageToWxImage(self, img):
 
-        myWxImage = wx.Image(myPilImage.size[0], myPilImage.size[1])
+        myWxImage = wx.Image(img.size[0], img.size[1])
 
-        dataRGB = myPilImage.convert(
-            'RGB').tobytes()    # RGBA --> RGB
+        dataRGB = img.convert(
+            'RGB').tobytes()
         myWxImage.SetData(dataRGB)
         if myWxImage.HasAlpha():
-            dataRGBA = myPilImage.tobytes()[3::4]
+            dataRGBA = img.tobytes()[3::4]
             myWxImage.SetAlphaData(dataRGBA)
         self.disp.SetBitmap(wx.Bitmap(myWxImage))
 
@@ -196,6 +201,7 @@ class Scope(wx.Frame):
 
     def onresize(self, event):
         resolution = event.GetString()
+        self.modified = True
         res = resolution.split('x')
         if resolution != "Original":
             w = res[0]
@@ -203,11 +209,15 @@ class Scope(wx.Frame):
             h = res[1]
             h = int(h)
             self.og.thumbnail((w, h))
+            self.filesize.SetLabel("Size: " + str(w) +
+                                   " x" + str(h) + "px")
         elif resolution == "Original":
             w, h = self.prefog.size
             w = int(w)
             h = int(h)
             self.og.thumbnail((w, h))
+            self.filesize.SetLabel("Size: " + str(w) +
+                                   " x" + str(h) + "px")
 
     def onopen(self, event):
         with wx.FileDialog(self.panel, "Open Image file", wildcard="Image files (*.jpg,*.jpeg,*.png,*.bmp,*.tiff,*.rast,*.xbm,*.rgb,*.pbm,*.pgm,*.ppm)|*.jpg;*.jpeg;*.png;*.bmp;*.tiff;*.rast;*.xbm;*.rgb;*.pbm;*.pgm;*.ppm",

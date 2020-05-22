@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import wx
-import imghdr
 import os
 import random
 from sys import platform
@@ -66,7 +65,7 @@ class Scope(wx.Frame):
         self.effects.Bind(wx.EVT_TEXT, self.oneffect)
         self.eff = wx.StaticText(self.info, label="Effects: ", pos=(18, 893))
         self.cleareffect = wx.Button(
-            self.info, id=3, label="Reset", pos=(240, 891), size=(50, 20))
+            self.info, id=3, label="Reset All", pos=(240, 891), size=(50, 20))
         self.cleareffect.Bind(wx.EVT_BUTTON, self.onclear)
 
         self.save = wx.Button(
@@ -84,15 +83,17 @@ class Scope(wx.Frame):
         self.filecolor = wx.StaticText(
             self.info, label="Color mode:", pos=(20, 55))
 
-        sizes = ['Original', '1920x1080', '1600x900', '1440x900',
+        sizes = ['1920x1080', '1600x900', '1440x900',
                  '1280x720', '1024x768', '800x600', '640x480']
         self.rsize = wx.ComboBox(self.info, choices=sizes, pos=(65, 790))
         self.rsizetxt = wx.StaticText(
             self.info, label="Resize: ", pos=(18, 793))
         self.rsize.Bind(wx.EVT_TEXT, self.onresize)
-        """ self.changesize = wx.Button(
-            self.info, id=6, label="Resize", pos=(212, 790))
-        self.changesize.Bind(wx.EVT_BUTTON, self.onresize) """
+
+        """     self.changesize = wx.Button(
+            self.info, id=6, label="Clear resize", pos=(212, 790))
+        self.changesize.Bind(wx.EVT_BUTTON, self.onresets) 
+        """
 
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(self.panel, flag=wx.EXPAND | wx.ALL)
@@ -125,12 +126,12 @@ class Scope(wx.Frame):
         self.pilimage = Image.open(path)
         self.og = Image.open(path)
         self.prefog = Image.open(path)
-        width, height = self.pilimage.size
+        self.width, self.height = self.pilimage.size
         self.pilimage.thumbnail((700, 800))
         self.preEffect = self.pilimage
         self.PilImageToWxImage(self.pilimage)
-        self.filesize.SetLabel("Size: " + str(width) +
-                               " x" + str(height) + "px")
+        self.filesize.SetLabel("Size: " + str(self.width) +
+                               " x" + str(self.height) + "px")
         self.filename.SetLabel("Name: " + os.path.split(path)[-1])
         self.filetype.SetLabel("File type: " + path.split('.')[-1])
         mode = ""
@@ -173,51 +174,33 @@ class Scope(wx.Frame):
 
     def onclear(self, event):
         self.PilImageToWxImage(self.preEffect)
-        self.modified = False
+        #self.modified = False
+        self.og = self.prefog
 
     def onsave(self, event):
         ran = random.randrange(0, 100)
         ran = str(ran)
-        if self.modified is True:
-            if platform == "linux" or platform == "linux2":
-                self.og.save(os.path.split(self.pathname)[
-                             0] + "/" + ran + " - " + os.path.split(self.pathname)[-1])
-            elif platform == "darwin":
-                self.og.save(os.path.split(self.pathname)[
-                             0] + "/" + ran + " - " + os.path.split(self.pathname)[-1])
-            elif platform == "win32":
-                self.og.save(os.path.split(self.pathname)[
-                             0] + "\\" + ran + " - " + os.path.split(self.pathname)[-1])
-        elif self.modified is False:
-            if platform == "linux" or platform == "linux2":
-                self.prefog.save(os.path.split(self.pathname)[
-                                 0] + "/" + ran + " - " + os.path.split(self.pathname)[-1])
-            elif platform == "darwin":
-                self.prefog.save(os.path.split(self.pathname)[
-                                 0] + "/" + ran + " - " + os.path.split(self.pathname)[-1])
-            elif platform == "win32":
-                self.prefog.save(os.path.split(self.pathname)[
-                                 0] + "\\" + ran + " - " + os.path.split(self.pathname)[-1])
+        if platform == "linux" or platform == "linux2":
+            self.og.save(os.path.split(self.pathname)[
+                0] + "/" + ran + " - " + os.path.split(self.pathname)[-1])
+        elif platform == "darwin":
+            self.og.save(os.path.split(self.pathname)[
+                0] + "/" + ran + " - " + os.path.split(self.pathname)[-1])
+        elif platform == "win32":
+            self.og.save(os.path.split(self.pathname)[
+                0] + "\\" + ran + " - " + os.path.split(self.pathname)[-1])
+        self.og.resize((self.width, self.height), resample=Image.LANCZOS)
 
     def onresize(self, event):
         resolution = event.GetString()
-        self.modified = True
         res = resolution.split('x')
-        if resolution != "Original":
-            w = res[0]
-            w = int(w)
-            h = res[1]
-            h = int(h)
-            self.og.thumbnail((w, h))
-            self.filesize.SetLabel("Size: " + str(w) +
-                                   " x" + str(h) + "px")
-        elif resolution == "Original":
-            w, h = self.prefog.size
-            w = int(w)
-            h = int(h)
-            self.og.thumbnail((w, h))
-            self.filesize.SetLabel("Size: " + str(w) +
-                                   " x" + str(h) + "px")
+        w = res[0]
+        w = int(w)
+        h = res[1]
+        h = int(h)
+        self.og.thumbnail((w, h))
+        self.filesize.SetLabel("Size: " + str(w) +
+                               " x" + str(h) + "px")
 
     def onopen(self, event):
         with wx.FileDialog(self.panel, "Open Image file", wildcard="Image files (*.jpg,*.jpeg,*.png,*.bmp,*.tiff,*.rast,*.xbm,*.rgb,*.pbm,*.pgm,*.ppm)|*.jpg;*.jpeg;*.png;*.bmp;*.tiff;*.rast;*.xbm;*.rgb;*.pbm;*.pgm;*.ppm",

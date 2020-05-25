@@ -18,4 +18,8 @@ public class Client {
     void Buy(Shop s, Register r) {
         s.sell(shopping_list, r);
     }
+
+    void shoppingList() {
+        System.out.println(shopping_list.toString());
+    }
 }

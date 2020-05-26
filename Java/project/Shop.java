@@ -50,16 +50,19 @@ public class Shop {
             if (found == false)
                 iRemove.add(s.getKey());
         }
-        System.out.println(iRemove.toString());
 
         items.keySet().removeAll(iRemove);
         goods.keySet().removeAll(gRemove);
         // System.out.println("boo");
         r.make_receipt(items, goods);
-        receipt_cnt += 1;
+        incReceiptcnt();
         calcRevenue(items);
         iRemove.clear();
         gRemove.clear();
+    }
+
+    private void incReceiptcnt() {
+        receipt_cnt += 1;
     }
 
     void calcRevenue(Map<String, Integer> items) {

@@ -40,10 +40,9 @@ public class Receipt {
                                 }
                 }
                 writer.print("\n----- Total: " + total + "lv. -----");
-                cnt++;
                 writer.close();
-                //printReceipt("receipt-" + (cnt--) + ".txt");
-              //  System.out.println("booRece");
+                printReceipt("receipt-" + (cnt) + ".txt");
+                cnt++;
 
         }
 

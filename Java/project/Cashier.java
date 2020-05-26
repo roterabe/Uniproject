@@ -16,4 +16,8 @@ public class Cashier {
     String getShop() {
         return s.getName();
     }
+
+    void startWorking() {
+        s.addWorker(this);
+    }
 }

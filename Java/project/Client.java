@@ -15,7 +15,7 @@ public class Client {
         shopping_list.put(item, number + count);
     }
 
-    void Buy(Shop s, Register r) {
+    void goBuy(Shop s, Register r) {
         s.sell(shopping_list, r);
     }
 

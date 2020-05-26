@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class Shop {
     private ArrayList<Cashier> workers = new ArrayList<Cashier>();
+    private ArrayList<Register> registers = new ArrayList<Register>();
     private Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
     private Set<Goods> gRemove = new HashSet<Goods>();
     private Set<String> iRemove = new HashSet<String>();
@@ -37,9 +38,11 @@ public class Shop {
                         gRemove.add(g.getKey());
 
                     else if (gcount < count) {
+                        iRemove.add(s.getKey());
+
                         System.out.println("Unable to do transaction! The shop has " + (count - gcount) + " "
                                 + s.getKey() + " less.");
-                        iRemove.add(s.getKey());
+
                     }
 
                     else if (count <= gcount) {
@@ -53,8 +56,7 @@ public class Shop {
 
         items.keySet().removeAll(iRemove);
         goods.keySet().removeAll(gRemove);
-        // System.out.println("boo");
-        r.make_receipt(items, goods);
+        r.prepare_receipt(items, goods, receipt_cnt);
         incReceiptcnt();
         calcRevenue(items);
         iRemove.clear();
@@ -80,11 +82,33 @@ public class Shop {
         workers.add(c);
     }
 
+    void addRegister(Register r) {
+        registers.add(r);
+    }
+
     void getRevenue() {
         System.out.println("The current revenue for " + getName() + " is: " + revenue + "lv.");
     }
 
     void receiptCnt() {
         System.out.println("The amount of printed receipts as of this moment is: " + receipt_cnt);
+    }
+
+    void assignCashiers() {
+        if (registers.size() >= workers.size())
+            for (int i = 0; i < workers.size(); i++)
+                registers.get(i).addCashier(workers.get(i));
+
+        else if (registers.size() < workers.size())
+            for (int i = 0; i < registers.size(); i++)
+                registers.get(i).addCashier(workers.get(i));
+
+    }
+
+    void handleClients() {
+        for (int i = 0; i < registers.size(); i++) {
+            registers.get(i).start();
+            System.out.println(registers.get(i).toString());
+        }
     }
 }

@@ -9,12 +9,12 @@ class Hangman(wx.Frame):
 
         super().__init__(
             None, title="Hangman",
-            size=(800, 600))
+            size=(800, 800))
         self.SetBackgroundColour("White")
-        self.panel = wx.Panel(self, size=(500, 500))
-        self.panel.SetBackgroundColour("White")
+        self.panel = wx.Panel(self, size=(800, 500))
+        self.panel.SetBackgroundColour("Gray")
         self.pickLabel = wx.StaticText(self.panel, -1, "Random word picker:", (600, 400))
-        self.pick = wx.Button(self.panel, id=27, label="Pick", pos=(720, 395), size=(60, -1))
+        self.pick = wx.Button(self.panel, id=27, label="Pick", pos=(750, 395), size=(50, -1))
         self.word = wx.StaticText(self.panel, -1, "", pos=(600, 440))
         self.font = wx.Font(11, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         self.word.SetFont(self.font)
@@ -84,9 +84,8 @@ class Hangman(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.onClick, id=25)
         self.Bind(wx.EVT_BUTTON, self.onClick, id=26)
 
-        sizer.Add(self.panel, flag=wx.ALIGN_TOP | wx.EXPAND | wx.BOTTOM, border=10)
-        sizer.Add(gs, flag=wx.ALIGN_BOTTOM | wx.EXPAND | wx.LEFT | wx.RIGHT |
-                  wx.ALIGN_BOTTOM | wx.ALIGN_CENTER, border=100)
+        sizer.Add(self.panel, flag=wx.ALIGN_TOP | wx.EXPAND | wx.BOTTOM, border=0)
+        sizer.Add(gs, flag=wx.EXPAND, border=100)
 
         sizer.SetSizeHints(self)
         self.SetSizer(sizer)

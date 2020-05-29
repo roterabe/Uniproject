@@ -1,7 +1,7 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class Register extends Thread {
     Cashier c;
@@ -35,20 +35,14 @@ public class Register extends Thread {
     public void run() {
         try {
             r.writeReceipt(cnt);
-            Thread.sleep(1000);
-            System.out.println(items.toString());
+            Thread.sleep(50);
 
-        } /*
-           * catch (FileNotFoundException e) {
-           * 
-           * e.printStackTrace(); }
-           */ catch (
+        } catch (
 
         InterruptedException e) {
-            e.printStackTrace();
+            System.out.println(e);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
@@ -57,6 +51,19 @@ public class Register extends Thread {
             t = new Thread(this);
             t.start();
         }
+    }
+
+    void printR(String tt) {
+        try {
+            r.printReceipt(tt);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    Vector<String> retR() {
+        Vector<String> res = r.retR();
+        return res;
     }
 
 }

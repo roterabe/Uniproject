@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Vector;
 import java.time.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,10 +14,11 @@ import java.time.LocalDateTime;
 public class Receipt {
         String cname;
         Cashier c;
-        //static int cnt = 0;
+        // static int cnt = 0;
         private double total = 0;
         Map<String, Integer> items = new HashMap<String, Integer>();
         Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
+        Vector<String> receipts = new Vector<String>();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
@@ -26,39 +29,29 @@ public class Receipt {
                 cname = c.getName();
         }
 
-        /* void makeReceipt() throws FileNotFoundException {
-                PrintWriter writer = new PrintWriter("receipt-" + cnt + ".txt");
-                writer.println("----- " + dtf.format(now) + " -----  Cashier: " + cname + " -----");
-                writer.println(c.getShop() + "-Limited" + " --- ID:" + cnt + " -------------------");
-                writer.print("\nItems: \n\n");
-                for (String s : items.keySet()) {
-                        for (Goods g : goods.keySet())
-                                if (s == g.getName()) {
-                                        writer.print("---------- " + s + "  ||  " + items.get(s) + " X " + g.getPrice()
-                                                        + " ----------\n");
-                                        total += items.get(s) * g.getPrice();
-                                }
-                }
-                writer.print("\n----- Total: " + total + "lv. -----");
-                System.out.println(items.toString());
-                writer.close();
-                // printReceipt("receipt-" + (cnt) + ".txt");
-                cnt++;
-                for (String s : items.keySet()) {
-                        for (Goods g : goods.keySet())
-                                if (s == g.getName()) {
-                                        System.out.println("---------- " + s + "  ||  " + items.get(s) + " X "
-                                                        + g.getPrice() + " ----------\n");
-                                        total += items.get(s) * g.getPrice();
-                                }
-
-                }
-        } */
+        /*
+         * void makeReceipt() throws FileNotFoundException { PrintWriter writer = new
+         * PrintWriter("receipt-" + cnt + ".txt"); writer.println("----- " +
+         * dtf.format(now) + " -----  Cashier: " + cname + " -----");
+         * writer.println(c.getShop() + "-Limited" + " --- ID:" + cnt +
+         * " -------------------"); writer.print("\nItems: \n\n"); for (String s :
+         * items.keySet()) { for (Goods g : goods.keySet()) if (s == g.getName()) {
+         * writer.print("---------- " + s + "  ||  " + items.get(s) + " X " +
+         * g.getPrice() + " ----------\n"); total += items.get(s) * g.getPrice(); } }
+         * writer.print("\n----- Total: " + total + "lv. -----");
+         * System.out.println(items.toString()); writer.close(); //
+         * printReceipt("receipt-" + (cnt) + ".txt"); cnt++; for (String s :
+         * items.keySet()) { for (Goods g : goods.keySet()) if (s == g.getName()) {
+         * System.out.println("---------- " + s + "  ||  " + items.get(s) + " X " +
+         * g.getPrice() + " ----------\n"); total += items.get(s) * g.getPrice(); }
+         * 
+         * } }
+         */
 
         void writeReceipt(int cnt) throws IOException {
-                System.out.println(cnt);
+                addR("receipt-" + cnt + ".txt");
                 File receipt = new File("receipt-" + cnt + ".txt");
-                FileWriter writer = new FileWriter(receipt.getAbsoluteFile(), true);
+                FileWriter writer = new FileWriter(receipt.getAbsoluteFile());
 
                 writer.write("----- " + dtf.format(now) + " -----  Cashier: " + cname + " -----\n");
                 writer.write(c.getShop() + "-Limited" + " --- ID:" + cnt + " -------------------\n");
@@ -72,7 +65,6 @@ public class Receipt {
                                 }
                 }
                 writer.write("\n----- Total: " + total + "lv. -----");
-                System.out.println(items.toString());
                 writer.close();
                 cnt++;
         }
@@ -82,5 +74,13 @@ public class Receipt {
                 while (output.hasNextLine())
                         System.out.println(output.nextLine());
 
+        }
+
+        private void addR(String text) {
+                receipts.add(text);
+        }
+
+        Vector<String> retR() {
+                return receipts;
         }
 }

@@ -108,7 +108,14 @@ public class Shop {
     void handleClients() {
         for (int i = 0; i < registers.size(); i++) {
             registers.get(i).start();
-            System.out.println(registers.get(i).toString());
+        }
+    }
+
+    void printReceipts() {
+        for (int i = 0; i < registers.size(); i++) {
+            for (String s : registers.get(i).retR()) {
+                registers.get(i).printR(s);
+            }
         }
     }
 }

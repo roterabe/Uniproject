@@ -23,5 +23,6 @@ public class Main {
         c2.goBuy(billa, r1);    
         billa.handleClients();
         billa.getRevenue();
+        billa.printReceipts();
     }
 }

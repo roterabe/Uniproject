@@ -15,11 +15,17 @@ public class Client {
         shopping_list.put(item, number + count);
     }
 
-    void goBuy(Shop s, Register r) {
+    void queue(Shop s, Register r) {
         s.sell(shopping_list, r);
+        r.start();
     }
 
     void shoppingList() {
         System.out.println(shopping_list.toString());
     }
+
+    void getName() {
+        System.out.println(name);
+    }
+
 }

@@ -10,63 +10,44 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Receipt {
-        String cname;
-        Cashier c;
-        // static int cnt = 0;
+        private String cname;
+        private Cashier c;
         private double total = 0;
-        Map<String, Integer> items = new HashMap<String, Integer>();
-        Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
-        Vector<String> receipts = new Vector<String>();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        private int counter = 0;
+        private Vector<String> receipts = new Vector<String>();
+        private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        private LocalDateTime now = LocalDateTime.now();
+        private int randomNum = 0;
 
-        Receipt(Cashier c, Map<String, Integer> items, Map<Goods, Integer> goods) {
+        Receipt(Cashier c) {
                 this.c = c;
-                this.items = items;
-                this.goods = goods;
                 cname = c.getName();
         }
 
-        /*
-         * void makeReceipt() throws FileNotFoundException { PrintWriter writer = new
-         * PrintWriter("receipt-" + cnt + ".txt"); writer.println("----- " +
-         * dtf.format(now) + " -----  Cashier: " + cname + " -----");
-         * writer.println(c.getShop() + "-Limited" + " --- ID:" + cnt +
-         * " -------------------"); writer.print("\nItems: \n\n"); for (String s :
-         * items.keySet()) { for (Goods g : goods.keySet()) if (s == g.getName()) {
-         * writer.print("---------- " + s + "  ||  " + items.get(s) + " X " +
-         * g.getPrice() + " ----------\n"); total += items.get(s) * g.getPrice(); } }
-         * writer.print("\n----- Total: " + total + "lv. -----");
-         * System.out.println(items.toString()); writer.close(); //
-         * printReceipt("receipt-" + (cnt) + ".txt"); cnt++; for (String s :
-         * items.keySet()) { for (Goods g : goods.keySet()) if (s == g.getName()) {
-         * System.out.println("---------- " + s + "  ||  " + items.get(s) + " X " +
-         * g.getPrice() + " ----------\n"); total += items.get(s) * g.getPrice(); }
-         * 
-         * } }
-         */
-
-        void writeReceipt(int cnt) throws IOException {
-                addR("receipt-" + cnt + ".txt");
-                File receipt = new File("receipt-" + cnt + ".txt");
+        synchronized void writeReceipt(Map<Goods, Integer> goods, ArrayList<Map<String, Integer>> queue1, int id)
+                        throws IOException {
+                randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                addR("receipt-" + id + randomNum + ".txt");
+                File receipt = new File("receipt-" + id + randomNum + ".txt");
                 FileWriter writer = new FileWriter(receipt.getAbsoluteFile());
 
                 writer.write("----- " + dtf.format(now) + " -----  Cashier: " + cname + " -----\n");
-                writer.write(c.getShop() + "-Limited" + " --- ID:" + cnt + " -------------------\n");
+                writer.write(c.getShop() + "-Limited" + " --- ID:" + id + randomNum + " -------------------\n");
                 writer.write("\nItems: \n\n");
-                for (String s : items.keySet()) {
+                for (String s : queue1.get(counter).keySet()) {
                         for (Goods g : goods.keySet())
                                 if (s == g.getName()) {
-                                        writer.write("---------- " + s + "  ||  " + items.get(s) + " X " + g.getPrice()
-                                                        + " ----------\n");
-                                        total += items.get(s) * g.getPrice();
+                                        writer.write("---------- " + s + "  ||  " + queue1.get(counter).get(s) + " X "
+                                                        + g.getPrice() + "lv ----------\n");
+                                        total += queue1.get(counter).get(s) * g.getPrice();
                                 }
                 }
                 writer.write("\n----- Total: " + total + "lv. -----");
                 writer.close();
-                cnt++;
+                counter += 1;
         }
 
         void printReceipt(String file) throws FileNotFoundException {
@@ -81,6 +62,12 @@ public class Receipt {
         }
 
         Vector<String> retR() {
-                return receipts;
+                if (receipts.size() > 0)
+                        return receipts;
+                else {
+                        String empty = "Empty";
+                        receipts.add(empty);
+                        return receipts;
+                }
         }
 }

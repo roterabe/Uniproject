@@ -1,31 +1,34 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
 public class Register extends Thread {
-    Cashier c;
-    Shop s;
-    Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
-    Map<String, Integer> items = new HashMap<String, Integer>();
-    Receipt r;
-    private Thread t;
-    private int cnt = 0;
+    private Cashier c;
+    private Shop s;
+    private Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
+    private ArrayList<Map<String, Integer>> queue1 = new ArrayList<Map<String, Integer>>();
+    private Receipt r;
+    final int id;
 
-    Register(Shop s) {
+    Register(Shop s, int id) {
         this.s = s;
+        this.id = id;
     }
 
     void openRegister() {
         s.addRegister(this);
     }
 
-    void prepare_receipt(Map<String, Integer> items, Map<Goods, Integer> goods, int receipt_cnt) {
-        this.items = items;
-        this.goods = goods;
-        Receipt r = new Receipt(c, items, goods);
+    void prepare_receipt(Map<String, Integer> items) {
+        queue1.add(items);
+        Receipt r = new Receipt(c);
         this.r = r;
-        cnt = receipt_cnt;
+    }
+
+    void addGoods(Map<Goods, Integer> goods) {
+        this.goods = goods;
     }
 
     void addCashier(Cashier c) {
@@ -34,12 +37,9 @@ public class Register extends Thread {
 
     public void run() {
         try {
-            r.writeReceipt(cnt);
-            Thread.sleep(50);
-
-        } catch (
-
-        InterruptedException e) {
+            r.writeReceipt(goods, queue1, id);
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             System.out.println(e);
         } catch (IOException e) {
             System.out.println(e);
@@ -47,10 +47,8 @@ public class Register extends Thread {
     }
 
     public void start() {
-        if (t == null) {
-            t = new Thread(this);
-            t.start();
-        }
+        Thread t = new Thread(this);
+        t.start();
     }
 
     void printR(String tt) {
@@ -62,8 +60,7 @@ public class Register extends Thread {
     }
 
     Vector<String> retR() {
-        Vector<String> res = r.retR();
-        return res;
+        return r.retR();
     }
 
 }

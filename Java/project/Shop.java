@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class Shop {
     private ArrayList<Cashier> workers = new ArrayList<Cashier>();
@@ -22,9 +23,16 @@ public class Shop {
         int count = 0;
         count = goods.containsKey(g) ? goods.get(g) : 0;
         goods.put(g, number + count);
+        addGoodsRegister(goods);
     }
 
-    void sell(Map<String, Integer> items, Register r) {
+    void addGoodsRegister(Map<Goods, Integer> goods) {
+        if (registers.size() > 0)
+            for (int i = 0; i < registers.size(); i++)
+                registers.get(i).addGoods(goods);
+    }
+
+    synchronized void sell(Map<String, Integer> items, Register r) {
         boolean found = false;
         for (Map.Entry<String, Integer> s : items.entrySet()) {
             found = false;
@@ -56,7 +64,7 @@ public class Shop {
 
         items.keySet().removeAll(iRemove);
         goods.keySet().removeAll(gRemove);
-        r.prepare_receipt(items, goods, receipt_cnt);
+        r.prepare_receipt(items);
         incReceiptcnt();
         calcRevenue(items);
         iRemove.clear();
@@ -91,7 +99,7 @@ public class Shop {
     }
 
     void receiptCnt() {
-        System.out.println("The amount of printed receipts as of this moment is: " + receipt_cnt);
+        System.out.println("The amount of printed receipts as of the last moment are: " + receipt_cnt);
     }
 
     void assignCashiers() {
@@ -105,17 +113,20 @@ public class Shop {
 
     }
 
-    void handleClients() {
-        for (int i = 0; i < registers.size(); i++) {
-            registers.get(i).start();
-        }
+    void handleClient(Register e) {
+        e.start();
     }
 
     void printReceipts() {
-        for (int i = 0; i < registers.size(); i++) {
-            for (String s : registers.get(i).retR()) {
-                registers.get(i).printR(s);
-            }
+        try {
+            if (registers.size() > 0)
+                for (int i = 0; i < registers.size(); i++) {
+                    for (String s : registers.get(i).retR()) {
+                        registers.get(i).printR(s);
+                    }
+                }
+        } catch (Exception e) {
+            System.out.println("No more receipts to print...");
         }
     }
 }

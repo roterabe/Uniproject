@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
         SewingStudio s = new SewingStudio("KrankenWagen");
@@ -10,21 +8,12 @@ public class Main {
         Clothing c4 = new Clothing();
         Clothing c5 = new Clothing();
         Clothing c6 = new Clothing();
-        Worker w = new Worker(12, "Bob");
-        Worker w1 = new Worker(10, "Ross");
+        Worker w = new Worker(12, "Bob Ross");
+        Worker w1 = new Worker(10, "Ross Geller");
         Worker w2 = new Worker(13, "Van Gogh");
         s.addWorker(w);
         s.addWorker(w1);
         s.addWorker(w2);
-
-        ArrayList<Clothing> clothes = new ArrayList<Clothing>();
-        clothes.add(c);
-        clothes.add(c1);
-        clothes.add(c2);
-        clothes.add(c3);
-        clothes.add(c4);
-        clothes.add(c5);
-        clothes.add(c6);
 
         s.addClothing(c);
         s.addClothing(c1);
@@ -35,7 +24,9 @@ public class Main {
         s.addClothing(c6);
 
         s.beginSewing();
-        System.out.println(w2.getSewn());
+        System.out.println("Worker " + w.getNAME() + " has sewn " + w.getSewn() + " pieces of fabic.");
+        System.out.println("Worker " + w1.getNAME() + " has sewn " + w1.getSewn() + " pieces of fabic.");
+        System.out.println("Worker " + w2.getNAME() + " has sewn " + w2.getSewn() + " pieces of fabic.");
 
     }
 }

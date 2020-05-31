@@ -4,7 +4,7 @@ public class Worker extends Thread {
     private final int id;
     private String name;
     private int sewn = 0;
-    private static int cnt = -1;
+    private int cnt = 0;
     ArrayList<Clothing> clothes = new ArrayList<Clothing>();
 
     Worker(int id, String name) {
@@ -15,9 +15,9 @@ public class Worker extends Thread {
     public void run() {
         System.out.println("RUNNING...");
         try {
-            cnt++;
             while (cnt < clothes.size()) {
                 if (clothes.get(cnt).getState() == true) {
+                    cnt++;
                     continue;
                 } else if (clothes.get(cnt).getState() == false) {
                     clothes.get(cnt).sew();
@@ -33,8 +33,8 @@ public class Worker extends Thread {
         System.out.println("STOPPING...");
     }
 
-    void getNAME() {
-        System.out.println(name);
+    String getNAME() {
+        return name;
     }
 
     void getID() {

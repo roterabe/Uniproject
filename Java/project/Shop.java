@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Shop {
@@ -32,7 +34,7 @@ public class Shop {
                 registers.get(i).addGoods(goods);
     }
 
-    synchronized void sell(Map<String, Integer> items, Register r) {
+    void sell(Map<String, Integer> items, Register r) {
         boolean found = false;
         for (Map.Entry<String, Integer> s : items.entrySet()) {
             found = false;
@@ -113,8 +115,25 @@ public class Shop {
 
     }
 
-    void handleClient(Register e) {
-        e.start();
+    void handleClients() {
+        ExecutorService pool = Executors.newFixedThreadPool(registers.size());
+
+        for (int i = 0; i < registers.size(); i++) {
+            pool.execute(registers.get(i));
+        }
+        awaitTerminationAfterShutdown(pool);
+    }
+
+    public void awaitTerminationAfterShutdown(ExecutorService threadPool) {
+        threadPool.shutdown();
+        try {
+            if (!threadPool.awaitTermination(60, TimeUnit.SECONDS)) {
+                threadPool.shutdownNow();
+            }
+        } catch (InterruptedException ex) {
+            threadPool.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 
     void printReceipts() {

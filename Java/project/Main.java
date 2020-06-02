@@ -26,9 +26,9 @@ public class Main {
         c2.queue(billa, r);
         c3.addToBuy("Corn", 3);
         c3.queue(billa, r1);
-        TimeUnit.SECONDS.sleep(1);
+        billa.handleClients();
+        billa.printReceipts();
         billa.getRevenue();
         billa.receiptCnt();
-        billa.printReceipts();
     }
 }

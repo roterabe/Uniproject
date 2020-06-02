@@ -6,11 +6,12 @@ import java.util.Vector;
 
 public class Register extends Thread {
     private Cashier c;
+    private Receipt r;
     private Shop s;
     private Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
     private ArrayList<Map<String, Integer>> queue1 = new ArrayList<Map<String, Integer>>();
-    private Receipt r;
-    final int id;
+    private final int id;
+    private int cnt = -1;
 
     Register(Shop s, int id) {
         this.s = s;
@@ -23,8 +24,6 @@ public class Register extends Thread {
 
     void prepare_receipt(Map<String, Integer> items) {
         queue1.add(items);
-        Receipt r = new Receipt(c);
-        this.r = r;
     }
 
     void addGoods(Map<Goods, Integer> goods) {
@@ -37,7 +36,9 @@ public class Register extends Thread {
 
     public void run() {
         try {
-            r.writeReceipt(goods, queue1, id);
+            Receipt r = new Receipt(c);
+            this.r = r;
+            process();
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println(e);
@@ -49,6 +50,10 @@ public class Register extends Thread {
     public void start() {
         Thread t = new Thread(this);
         t.start();
+    }
+
+    void process() throws IOException {
+        r.writeReceipt(goods, queue1, id);
     }
 
     void printR(String tt) {

@@ -17,7 +17,6 @@ public class Client {
 
     void queue(Shop s, Register r) {
         s.sell(shopping_list, r);
-        r.start();
     }
 
     void shoppingList() {

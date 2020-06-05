@@ -11,7 +11,6 @@ public class Register extends Thread {
     private Map<Goods, Integer> goods = new HashMap<Goods, Integer>();
     private ArrayList<Map<String, Integer>> queue1 = new ArrayList<Map<String, Integer>>();
     private final int id;
-    private int cnt = -1;
 
     Register(Shop s, int id) {
         this.s = s;
@@ -39,7 +38,7 @@ public class Register extends Thread {
             Receipt r = new Receipt(c);
             this.r = r;
             process();
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             System.out.println(e);
         } catch (IOException e) {

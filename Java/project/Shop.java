@@ -67,21 +67,25 @@ public class Shop {
         items.keySet().removeAll(iRemove);
         goods.keySet().removeAll(gRemove);
         r.prepare_receipt(items);
-        incReceiptcnt();
-        calcRevenue(items);
+        //incReceiptcnt();
+        //calcRevenue(items);
         iRemove.clear();
         gRemove.clear();
     }
 
-    private void incReceiptcnt() {
+    /* private void incReceiptcnt() {
         receipt_cnt += 1;
-    }
+    } */
 
-    void calcRevenue(Map<String, Integer> items) {
+    /* void calcRevenue(Map<String, Integer> items) {
         for (String s : items.keySet())
             for (Goods g : goods.keySet())
                 if (s == g.getName())
                     revenue += items.get(s) * g.getPrice();
+    } */
+
+    void getRevenue() {
+        System.out.println("The current revenue for " + getName() + " is: " + registers.get(0).getRevenue() + "lv.");
     }
 
     String getName() {
@@ -96,12 +100,12 @@ public class Shop {
         registers.add(r);
     }
 
-    void getRevenue() {
+    /* void getRevenue() {
         System.out.println("The current revenue for " + getName() + " is: " + revenue + "lv.");
-    }
+    } */
 
     void receiptCnt() {
-        System.out.println("The amount of printed receipts as of the last moment are: " + receipt_cnt);
+        System.out.println("The amount of printed receipts as of the last moment are: " + registers.get(0).getReceiptCnt());
     }
 
     void assignCashiers() {

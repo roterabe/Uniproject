@@ -67,4 +67,14 @@ public class Register extends Thread {
         return r.retR();
     }
 
+    double getRevenue() {
+        double rev = r.getRevenue();
+        return rev;
+    }
+
+    int getReceiptCnt() {
+        int rc = r.getReceiptCnt();
+        return rc;
+    }
+
 }

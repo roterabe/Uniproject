@@ -18,6 +18,8 @@ public class Receipt {
         private Vector<String> receipts = new Vector<String>();
         private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         private LocalDateTime now = LocalDateTime.now();
+        private static double revenue = 0;
+        private static int receiptcnt = 0;
 
         Receipt(Cashier c) {
                 this.c = c;
@@ -43,9 +45,11 @@ public class Receipt {
                                         }
                         }
                         writer.write("\n----- Total: " + total + "lv. -----");
+                        calcRevenue(total);
                         total = 0;
                         writer.close();
                         counter++;
+                        incReceiptcnt();
                 }
         }
 
@@ -68,5 +72,21 @@ public class Receipt {
                         receipts.add(empty);
                         return receipts;
                 }
+        }
+
+        private synchronized static void calcRevenue(double total) {
+                revenue += total;
+        }
+
+        double getRevenue() {
+                return revenue;
+        }
+
+        private synchronized static void incReceiptcnt() {
+                receiptcnt += 1;
+            }
+
+        int getReceiptCnt(){
+                return receiptcnt;
         }
 }

@@ -46,10 +46,10 @@ public class Receipt {
                         }
                         writer.write("\n----- Total: " + total + "lv. -----");
                         calcRevenue(total);
+                        incReceiptcnt();
                         total = 0;
                         writer.close();
                         counter++;
-                        incReceiptcnt();
                 }
         }
 

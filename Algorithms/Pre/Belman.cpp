@@ -20,7 +20,7 @@ void BellmanFord(int graph[][3], int V, int E,
 {
     // Initialize distance of all vertices as infinite.
     vector<int> dis(MAX);
-    dis.assign(V, INT_MAX);
+    dis.assign(dis.size(), INT_MAX);
 
     // initialize distance of source as 0
     dis[src] = 0;

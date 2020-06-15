@@ -4,18 +4,49 @@
 
 using namespace std;
 
+vector<vector<int>> adj(100); // adjacency list of graph
+vector<bool> visited(100);
+vector<int> ans;
 vector<vector<int>> a(100); // Vector with limit of 100 points.
-int used[100];              // Array to mark the points we've passed.
 
-void dfs(int k)
+void dfs(int v)
 {
-    cout << k << " ";
-    for (int i = 0; i < a[k].size(); i++)
+    visited[v] = true;
+    for (int i = 0; i < a[v].size(); i++)
     {
-        if (used[a[k][i]])
-            continue;
-        used[a[k][i]] = 1;
-        dfs(a[k][i]);
+        if (!visited[a[v][i]])
+            dfs(a[v][i]);
+    }
+    ans.push_back(v);
+}
+
+void dfs1(int v)
+{
+    visited[v] = true;
+    for (int u : adj[v])
+    {
+        if (!visited[u])
+            dfs1(u);
+    }
+    ans.push_back(v);
+}
+
+void topological_sort(vector<int> items)
+{
+    ans.clear();
+    for (auto i : items)
+    {
+        if (!visited[i])
+            dfs1(i);
+    }
+    reverse(ans.begin(), ans.end());
+}
+
+void print(vector<int> p)
+{
+    for (auto e : p)
+    {
+        cout << e << " ";
     }
 }
 
@@ -31,7 +62,9 @@ int main()
 
     int c = 1;
     int c1 = 1;
+
     int r1 = r;
+    vector<int> items;
 
     while (c != 0 || c1 != 0)
     {
@@ -42,6 +75,8 @@ int main()
         cin >> c >> c1;
         a[c].push_back(c1);
         a[c1].push_back(c);
+        adj[c].push_back(c1);
+        items.push_back(c);
 
         r1 -= 1;
     }
@@ -49,7 +84,14 @@ int main()
     for (int v = 0; v < n; v++)
     {
         sort(a[v].begin(), a[v].end());
+        sort(adj[v].begin(), adj[v].end());
     }
-    used[i] = 1;
+
+    topological_sort(items);
+    print(ans);
+    ans.clear();
+    visited.assign(visited.size(), false);
     dfs(i);
+    cout << endl;
+    print(ans);
 }

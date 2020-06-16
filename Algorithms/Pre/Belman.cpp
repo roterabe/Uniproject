@@ -68,11 +68,9 @@ void BellmanFord1(vector<vector<int>> graph, vector<int> vertices, int V, int E,
     // Initialize distance of all vertices as infinite.
     vector<int> dis(MAX);
     dis.assign(dis.size(), INT_MAX);
-    vector<vector<int>> data(MAX);
 
     // initialize distance of source as 0
     dis[src] = 0;
-    data[src].push_back(0);
 
     // Relax all edges |V| - 1 times. A simple
     // shortest path from src to any other
@@ -87,11 +85,6 @@ void BellmanFord1(vector<vector<int>> graph, vector<int> vertices, int V, int E,
             {
                 dis[graph[j][1]] =
                     dis[graph[j][0]] + graph[j][2];
-
-                data[graph[j][0]].push_back(graph[j][1]);
-                data[graph[j][1]].push_back(graph[j][0]);
-                /* if (data[graph[j][0]].size() == 0)
-                    data[graph[j][0]].push_back(graph[j][1]); */
             }
         }
     }
@@ -113,35 +106,10 @@ void BellmanFord1(vector<vector<int>> graph, vector<int> vertices, int V, int E,
                  << endl;
     }
 
-    cout << "Vertex \t\tDistance from Source" << endl;
-    for (int i = 0; i < vertices.size(); i++)
-    {
-        cout << vertices[i] << "\t\t" << dis[vertices[i]] << endl;
-    }
-
-    for (int i = 0; i < vertices.size(); i++)
-    {
-        int min = INT_MAX;
-        int push = 0;
-        for (int j = 0; j < data[vertices[i]].size(); j++)
-        {
-            if (vertices[i] == data[vertices[i]][j])
-                continue;
-            int temp = dis[data[vertices[i]][j]];
-            if (temp < min)
-            {
-                min = temp;
-                push = data[vertices[i]][j];
-            }
-        }
-        data[vertices[i]].clear();
-        data[vertices[i]].push_back(push);
-    }
-
     cout << "\nVertex \t\tCost" << endl;
     for (int i = 0; i < vertices.size(); i++)
     {
-        cout << vertices[i] << "\t\t" << data[vertices[i]][0] << endl;
+        cout << vertices[i] << "\t\t" << dis[vertices[i]] << endl;
     }
 }
 

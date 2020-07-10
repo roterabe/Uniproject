@@ -57,7 +57,7 @@ int main()
 
     int utex, vertex, weight, size, edge, source, i, j;
 
-    cin >> size >> edge >> source;
+    cin >> size >> edge;
 
     for (i = 1; i <= size; i++)
     {
@@ -74,6 +74,7 @@ int main()
         g[vertex][++g[vertex][0]] = utex;
         c[utex][vertex] = c[vertex][utex] = weight;
     }
+    cin >> source;
 
     dijkstra(source, size);
 

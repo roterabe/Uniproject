@@ -8,14 +8,11 @@ using namespace std;
 
 vector<bool> v;
 vector<vector<int>> g;
+vector<int> level;
 
 void edge(int a, int b)
 {
     g[a].pb(b);
-    g[b].pb(a);
-
-    // for undirected graph add this line
-    // g[b].pb(a);
 }
 
 void bfs(int u)
@@ -24,10 +21,10 @@ void bfs(int u)
 
     q.push(u);
     v[u] = true;
+    level[u] = 1;
 
     while (!q.empty())
     {
-
         int f = q.front();
         q.pop();
 
@@ -36,13 +33,22 @@ void bfs(int u)
         // Enqueue all adjacent of f and mark them visited
         for (auto i = g[f].begin(); i != g[f].end(); i++)
         {
+            int b = g[f][*i];
+
             if (!v[*i])
             {
                 q.push(*i);
+                level[b] = level[u] + 1;
                 v[*i] = true;
             }
         }
     }
+
+    cout << "Nodes"
+         << "    "
+         << "Level" << endl;
+    for (int i = 0; i < g.size() + 1; i++)
+        cout << " " << i << "   -->   " << level[i] << endl;
 }
 
 // Driver code
@@ -50,6 +56,7 @@ int main()
 {
     int n, e, src;
     cin >> n >> e >> src;
+    level.resize(n + 1);
 
     v.assign(n + 1, false);
     g.assign(n + 1, vector<int>());

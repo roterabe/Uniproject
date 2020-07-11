@@ -1,90 +1,77 @@
 
-// CPP program to print all paths of source to
-// destination in given graph
+// A Quick implementation of BFS using
+// vectors and queue
 #include <bits/stdc++.h>
+#define pb push_back
+
 using namespace std;
 
-vector<bool> visited;
-vector<int> path;
-vector<vector<int>> q;
+vector<bool> v;
 vector<vector<int>> g;
-vector<int> p;
-int cnt = 0;
+vector<int> level;
 
-// utility function for printing
-// the found path in graph
-void printpath(vector<int> &path)
+void edge(int a, int b)
 {
-    for (int i = 0; i < path.size(); i++)
-        cout << path[i] << " ";
-    cout << endl;
+    g[a].pb(b);
 }
 
-// utility function to check if current
-// vertex is already present in path
-int isNotVisited(int x, vector<int> &path)
+void bfs(int u)
 {
-    int size = path.size();
-    for (int i = 0; i < size; i++)
-        if (path[i] == x)
-            return 0;
-    return 1;
-}
+    queue<int> q;
 
-// utility function for finding paths in graph
-// from source to destination
-void findpaths(vector<vector<int>> g, int src, int v, int e)
-{
-    // create a queue which stores
-    // the paths
-    cnt++;
-    vector<int> nuance;
-    if (!visited[src])
-    {
-        visited[src] = true;
-        path.push_back(src);
-    }
+    q.push(u);
+    v[u] = true;
+    level[u] = 1;
 
-    for (int i = 0; i < g[src].size(); i++)
+    while (!q.empty())
     {
-        if (!visited[g[src][i]])
+        int f = q.front();
+        q.pop();
+
+        cout << f << " ";
+
+        // Enqueue all adjacent of f and mark them visited
+        for (auto i = g[f].begin(); i != g[f].end(); i++)
         {
-            visited[g[src][i]] = true;
-            path.push_back(g[src][i]);
+            int b = g[f][*i];
+
+            if (!v[*i])
+            {
+                q.push(*i);
+                level[b] = level[u] + 1;
+                v[*i] = true;
+            }
         }
     }
 
-    for (int i = cnt; i < path.size(); i++)
-    {
-        p.push_back(path[i-1]);
-        findpaths(g, path[cnt], v, e);
-        q.push_back(path);
-    }
-
-    for (auto qe : q)
-    printpath(qe);
-
+    cout << "Nodes"
+         << "    "
+         << "Level" << endl;
+    for (int i = 0; i < g.size() + 1; i++)
+        cout << " " << i << "   -->   " << level[i] << endl;
 }
 
-// driver program
+// Driver code
 int main()
-{ // number of vertices
+{
     int n, e, src;
     cin >> n >> e >> src;
-    g.resize(n + 1);
-    visited.resize(n + 1);
-    visited.assign(n + 1, false);
-    int v, u;
+    level.resize(n + 1);
 
+    v.assign(n + 1, false);
+    g.assign(n + 1, vector<int>());
+
+    int a, b;
     for (int i = 0; i < e; i++)
     {
-        cin >> v >> u;
-        g[v].push_back(u);
-        g[u].push_back(v);
+        cin >> a >> b;
+        edge(a, b);
     }
 
-    // function for finding the paths
-    findpaths(g, src, n, e);
+    /* for (int i = 0; i < n; i++)
+    {
+        if (!v[i]) */
+    bfs(src);
 
     return 0;
 }

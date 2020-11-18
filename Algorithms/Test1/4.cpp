@@ -10,10 +10,14 @@ void Increment(int & val){
 
 int main()
 {
-    int a = 5;
+    int a = 1;
+    int *b = &a;
     Increment(a);
     std::cout<<a<<std::endl;
-    Increment(&a);
+    Increment(b);
     std::cout<<a<<std::endl;
+    Increment(*b);
+    std::cout<<a<<std::endl;
+
     return 0;
 }

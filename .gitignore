@@ -2,6 +2,9 @@
 **.idea/
 **.DS_Store
 .vscode/
+.vs/
+x64/
+Debug/
 
 # Compiled Object files
 *.slo

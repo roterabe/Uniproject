@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href=draw.css>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>Downloads</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/galleria.min.js"></script>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="main.html">Home</a>
+        <a class="active" href="gallery.html">Gallery</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="feedback.html">Feedback</a>
+    </div>
+
+    <div class="wrap">
+        <div class="galleria">
+            <img src="profile.jpg">
+            <img src="avatar.jpg">
+            <img src="roman.jpg">
+        </div>
+    </div>
+</body>
+<script>
+    (function() {
+        Galleria.loadTheme('https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/themes/classic/galleria.classic.min.js');
+        Galleria.run('.galleria');
+    }());
+</script>
+
+</html>

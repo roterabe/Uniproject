@@ -77,9 +77,11 @@ div.rightcolumn p {
 }
 
 .galleria {
-    width: 30vw;
-    height: 60vw;
-    background: #000
+    position: absolute;
+    left: 0.4vw;
+    width: 99.2%;
+    height: 90%;
+    background: darkslategrey;
 }
 
 @media only screen and (max-width:800px) {
@@ -111,6 +113,9 @@ div.rightcolumn p {
         height: 50%;
     }
     .card {
+        margin-top: 5vw;
+    }
+    .galleria {
         margin-top: 5vw;
     }
 }

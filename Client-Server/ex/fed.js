@@ -10,7 +10,7 @@ function savef() {
     xmlhttp.send(data);
     feed = document.createTextNode(feed);
     let p = document.createElement('p');
-    p.className = 'lab';
+    p.className = 'laby';
     p.appendChild(feed);
     $('#wraps').append(p);
     $('#feedback').val('');

@@ -115,6 +115,11 @@ div.wrap p {
     font-size: x-large;
 }
 
+.laby {
+    font-size: x-large;
+    position: relative;
+}
+
 .bt {
     float: right;
     height: 3em;
@@ -125,12 +130,12 @@ div.wrap p {
 
 @media only screen and (max-width:800px) {
     .lab {
-        position: fixed;
+        position: absolute;
         font-size: x-large;
         margin-top: 5vw;
     }
     .swag {
-        margin-top: 20vw;
+        margin-top: 18vw;
     }
     .navbar {
         position: static;

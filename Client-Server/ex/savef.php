@@ -1,16 +1,11 @@
 <?php
-
-$allowedMethods = array(
-    'POST'
-);
-
-$post_data = $_REQUEST['data'];
+$post_data = $_POST['data'];
 if (!empty($post_data)) {
-
-    $filename = 'feedback.txt';
+    $dir = '.\\';
+    $file = uniqid().'customer';
+    $filename = $dir.$file.'.txt';
     $handle = fopen($filename, "w");
     fwrite($handle, $post_data);
     fclose($handle);
-    echo $file;
+
 }
-?>

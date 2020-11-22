@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href=draw.css>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href=draw.css>
     <title>Feedback</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="fed.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='fed.js'></script>
 </head>
 
 <body>
-    <div class="navbar">
-        <a href="main.html">Home</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="downloads.html">Downloads</a>
-        <a class="active" href="feedback.html">Feedback</a>
+    <div class='navbar'>
+        <a href='main.html'>Home</a>
+        <a href='gallery.html'>Gallery</a>
+        <a href='downloads.html'>Downloads</a>
+        <a class='active' href='feedback.html'>Feedback</a>
     </div>
 
-    <div class="wrap">
-        <label for="feedback">Leave Feedback:</label>
-        <div class="wrap">
-            <textarea id="feedback" rows="4" cols="50"></textarea>
+    <div class='wrap'>
+        <label class='lab'>Leave feedback so you can judge my incompetence:</label>
+        <div class='wrap'>
+            <textarea class='swag' id='feedback'></textarea>
         </div>
-        <button onclick='savef()'>Submit</button>
+        <button class='bt' onclick='savef()'>Submit</button>
     </div>
 
 </body>

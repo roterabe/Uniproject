@@ -55,25 +55,28 @@ div.rightcolumn p {
 }
 
 .tile {
-    float: right;
     border-style: solid;
-    margin-right: 3vw;
-    margin-top: 5vw;
-    border-width: 3px;
+    margin-top: 2vw;
+    margin-left: 0.04%;
+    border-width: 0.2em;
     color: black;
     display: block;
-    height: 130px;
+    height: 10em;
     list-style-type: none;
     position: relative;
     text-align: center;
-    width: 270px;
-    text-align: center;
+    width: 98.4%;
 }
 
 .wrap {
     overflow: hidden;
     width: 100%;
     margin: 0.5vw;
+}
+
+div.wrap p {
+    font-size: xx-large;
+    text-align: center;
 }
 
 .galleria {
@@ -96,6 +99,9 @@ div.rightcolumn p {
         text-align: left;
         font-size: 4vw;
     }
+    .wrap {
+        margin: 0vw;
+    }
     .leftcolumn {
         width: 100%;
         margin-left: 0vw;
@@ -117,5 +123,10 @@ div.rightcolumn p {
     }
     .galleria {
         margin-top: 5vw;
+        padding: 5vw;
+    }
+    .tile {
+        width: 97%;
+        margin-left: 1vw;
     }
 }

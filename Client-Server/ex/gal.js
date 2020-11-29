@@ -1,7 +1,12 @@
 $(document).ready(function() {
-    Galleria.loadTheme('https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/themes/folio/galleria.folio.min.js');
+    Galleria.loadTheme('https://cdnjs.cloudflare.com/ajax/libs/galleria/1.6.1/themes/classic/galleria.classic.min.js');
+    Galleria.configure({
+        imagePosition: 'center',
+        transition: "slide",
+        thumbCrop: "height",
+        swipe: true
+    });
     Galleria.run('.galleria', {
-        height: parseInt($('#galleria').css('height')),
         wait: true
     });
 }());

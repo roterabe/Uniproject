@@ -1,17 +1,7 @@
-local fps = 7
-
-local frame = 1
-
-local animation_dur = 1 / fps
-
-local frame_number = 4
-
-local xupdate
-
 function love.load()
     font = love.graphics.newFont(14)
     love.graphics.setFont(font)
-   --love.graphics.setColor(0, 0, 0, 255)
+
     character = {}
     character.x = 100
     character.y = 650
@@ -39,11 +29,7 @@ function love.load()
     enemy.y = platform.y - enemy.h - 1
     enemy.respawn = 0
 
-
-    walkinganim = love.graphics.newImage("ex.png")
-    walk = love.graphics.newQuad(0, 0, 200, 400, walkinganim:getWidth(), walkinganim:getHeight())
-
-    --love.graphics.setColor(0, 0, 0, 225)
+    love.graphics.setColor(0, 0, 0, 225)
     love.graphics.setBackgroundColor(255, 153, 0)
 end
 
@@ -51,42 +37,7 @@ function collision(x1, y1, w1, h1, x2, y2, w2, h2)
     return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
 end
 
---[[ function love.keypressed(key)
-    dt = love.timer.getDelta()
-    if key == 'k' then
-        if collision(character.x, character.y, character.w, character.h, enemy.x, enemy.y, enemy.w, enemy.h) then
-            if enemy.health <= 0 then
-                enemy.alive = false
-            end
-            enemy.health = enemy.health - character.damage
-        end
-        character.w = character.w + 1 * dt * 2000
-    end
-
-end
-
-function love.keyreleased(key)
-    dt = love.timer.getDelta()
-    if key == 'k' then
-        character.w = character.w - 1 * dt * 2000
-    end
-end ]]
-
 function love.update(dt)
-    --[[ if dt < 0.04 then
-        animation_dur = animation_dur - dt
-        if animation_dur <= 0 then
-            animation_dur = 1 / fps
-            frame = frame + 1
-            if frame > frame_number then
-                frame = 1
-            end
-            xupdate = 12 * (frame - 1)
-            walk:setViewport(xupdate, 0, 12, 12)
-        else
-            return
-        end
-    end
     if love.keyboard.isDown('d') then
         character.x = character.x + 1 * dt * 300
     elseif love.keyboard.isDown('a') then
@@ -108,16 +59,15 @@ function love.update(dt)
             enemy.health = 120
         end
         enemy.respawn = enemy.respawn - dt
-    end ]]
+    end
 end
 
 function love.draw()
-    --[[ love.graphics.print(character.health, character.x, character.y - 20) ]]
-    --love.graphics.rectangle("fill", platform.x, platform.y, platform.width, platform.height)
-   --[[  if enemy.alive then
+    love.graphics.print(character.health, character.x, character.y - 20)
+    love.graphics.rectangle("fill", platform.x, platform.y, platform.width, platform.height)
+    if enemy.alive then
         love.graphics.print(enemy.health, enemy.x, enemy.y - 20)
         love.graphics.rectangle("fill", enemy.x, enemy.y, enemy.w, enemy.h)
-    end ]]
-    love.graphics.draw(walkinganim, walk, 100, 200, 0, 1, 1)
-    --love.graphics.rectangle("fill", character.x, character.y, character.w, character.h)
+    end
+    love.graphics.rectangle("fill", character.x, character.y, character.w, character.h)
 end

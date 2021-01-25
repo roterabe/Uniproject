@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Comments";
+}
+
+<div class="wrap">
+    <p>Just some opinions:</p>
+</div>
+<div class="tilebox">
+    @foreach (var entry in ViewBag.Entries)
+    {
+        <div class="wrap">
+            <h1>@entry.Comment</h1>
+        </div>
+        <p style="margin-left: 1vw"> Submitted by @entry.Email on @entry.CurrDate.ToLongDateString()</p>
+    }
+</div>
+

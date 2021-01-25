@@ -1,30 +1,49 @@
 ﻿using System;
 
+
 namespace ConsoleCalc
 {
+    interface IPerson
+
+    {
+
+        String FirstName
+
+        { get; set; }
+
+    }
+
+    class Employee : IPerson
+
+    {
+
+        private String str;
+
+        public String FirstName
+
+        {
+
+            get { return str; }
+
+            set { str = value; }
+
+        }
+
+    }
     class Program
     {
-        delegate int Operation(int x, int y);
 
         static void Main(string[] args)
         {
-            int i;
-
-            for (i = 0; i <= 10; i++)
-
-                Console.WriteLine(i);
+            int a = 5;
+            int s = 0, c = 0;
+            Proc(a, ref s, ref c);
+            Console.WriteLine(s + " " + c);
         }
-        static void fun(double d)
+        static void Proc(int x, ref int ss, ref int cc)
         {
-            Console.WriteLine(d + " ");
-        }
-
-        public int Length
-        {
-            set
-            {
-                Length = value;
-            }
+            ss = x * x;
+            cc = x * x * x;
         }
     }
 }

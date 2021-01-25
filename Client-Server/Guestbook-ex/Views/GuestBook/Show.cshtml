@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+<p>
+    <h2>
+        Guestbook Entry
+    </h2>
+    <dl>
+        <dt>Name:</dt>
+        <dd>@Model.Name</dd>
+        <dt>Date Added:</dt>
+        <dd>@Model.DateAdded</dd>
+        <dt>Message:</dt>
+        <dd>
+            @Model.Message
+        </dd>
+    </dl>
+        @Html.ActionLink("Back to Entries", "Index")
+</p>

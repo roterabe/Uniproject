@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<form method="post" action="">
+    <fieldset>
+        <input type="text" name="Name" maxlength="200" value="@Model.Name"/>
+        <br /><br />
+        Please edit your message: <br />
+        <textarea name="Message" rows="10" cols="40">@Model.Message</textarea>
+        <br /><br />
+        <input type="submit" value="Edit Entry" />
+    </fieldset>
+</form>

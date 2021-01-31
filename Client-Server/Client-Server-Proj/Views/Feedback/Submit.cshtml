@@ -4,11 +4,13 @@
 }
 
 @{ViewBag.Title = "Add new entry";}<h2>Leave feedback</h2>
-<form method="post" action="">
-    <fieldset>
-        Enter email: <br />
-        <input type="email" name="Email" maxlength="150" /><br /><br /> Enter feedback: <br />
-        <textarea name="Comment" rows="10" cols="40" minlength="8" required="required"></textarea><br /><br />
-        <input type="submit" value="Submit" />
-    </fieldset>
-</form>
+<div class="fwrap">
+    <form method="post" action="">
+        <fieldset>
+            Enter email: <br />
+            <input type="email" name="Email" minlength="1" maxlength="150" value="anonymous@email.com" required /><br /><br /> Enter feedback: <br />
+            <textarea name="Comment" rows="10" cols="40" minlength="8" required="required"></textarea><br /><br />
+            <input type="submit" value="Submit" />
+        </fieldset>
+    </form>
+</div>

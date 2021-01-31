@@ -180,7 +180,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\NHome\Main.cshtml" />
     <Content Include="Views\Shared\_Layout0.cshtml" />
     <Content Include="Views\NHome\Gallery.cshtml" />

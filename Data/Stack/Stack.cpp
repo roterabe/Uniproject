@@ -104,7 +104,6 @@ ArrayStack<O> &ArrayStack<O>::operator=(const ArrayStack &st)
 
 int main()
 {
-
     ArrayStack<int> A;
     int o = 0;
     std::cin >> o;
@@ -114,6 +113,7 @@ int main()
         A.push(o % 2);
         o = o / 2;
     } while (o);
+
     for (int i = k; i > 0; i /= 2)
     {
         std::cout << A.top() << " ";
